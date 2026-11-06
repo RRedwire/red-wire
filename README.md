@@ -2,9 +2,8 @@
 
 **red-wire.org** — open infrastructure for a less restricted web.
 
-A competitor to the TitaniumNetwork model: instead of a directory of unrelated forks, RedWire is one
-transport layer, one brand, and a deployment path for every service. The site is static, the proxy is
-real, and every piece is self-hostable.
+RedWire is one transport layer, one brand, and a deployment path for every service. The site is static,
+the proxy is real, and every piece is self-hostable.
 
 ## What's in here
 
