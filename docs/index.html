@@ -1,0 +1,466 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Docs — RedWire</title>
+    <meta name="description" content="RedWire documentation: deploy Redline, understand the Ultraviolet + BareMux + Epoxy/WISP stack, configure the relay and troubleshoot." />
+    <meta name="theme-color" content="#050608" />
+    <link rel="canonical" href="https://red-wire.org/docs/" />
+    <meta property="og:title" content="Docs — RedWire" />
+    <meta property="og:description" content="Deploy Redline and understand the UBG stack." />
+    <meta property="og:url" content="https://red-wire.org/docs/" />
+    <meta property="og:type" content="article" />
+    <link rel="icon" href="/assets/img/favicon-32.png" type="image/png" sizes="32x32" />
+    <link rel="apple-touch-icon" href="/assets/img/favicon-180.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/assets/css/site.css?v=1" />
+  </head>
+
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <canvas id="wire-canvas" aria-hidden="true" style="position: fixed; inset: 0; z-index: -3; pointer-events: none; opacity: 0.35"></canvas>
+
+    <header class="nav">
+      <div class="shell">
+        <a class="brand" href="/" aria-label="RedWire home">
+          <img class="brand-mark" src="/assets/img/redwire-mark.png" alt="" width="28" height="28" />
+          RED<b>WIRE</b>
+        </a>
+        <nav class="nav-links" aria-label="Primary">
+          <a href="/#services">Services</a>
+          <a href="/projects/">Projects</a>
+          <a href="/company/">Company</a>
+          <a href="/docs/">Docs</a>
+          <a href="/status/">Status</a>
+          <a href="https://github.com/RRedwire" target="_blank" rel="noopener">GitHub</a>
+        </nav>
+        <div class="nav-cta">
+          <a class="btn btn-sm btn-primary" href="#quickstart">Quickstart</a>
+          <button class="nav-menu" aria-label="Open menu" aria-expanded="false">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16" /></svg>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main id="main">
+      <section class="page-head">
+        <div class="shell">
+          <span class="kicker">Documentation</span>
+          <h1>Wire it up.</h1>
+          <p>
+            Everything you need to run Redline locally, put it on a real host, and wire a proxy into your own site.
+            The kit is intentionally small — read it end to end in an afternoon.
+          </p>
+        </div>
+      </section>
+
+      <div class="shell docs-layout">
+        <aside class="docs-nav" aria-label="Documentation sections">
+          <div class="group">
+            <span>Start</span>
+            <a href="#quickstart">Quickstart</a>
+            <a href="#architecture">Architecture</a>
+          </div>
+          <div class="group">
+            <span>Deploy</span>
+            <a href="#docker">Docker</a>
+            <a href="#hosts">Hosts</a>
+            <a href="#cloudflare">Cloudflare</a>
+            <a href="#reverse-proxy">Reverse proxy</a>
+          </div>
+          <div class="group">
+            <span>Build</span>
+            <a href="#configuration">Configuration</a>
+            <a href="#wirekit">WireKit</a>
+            <a href="#signal">Signal</a>
+          </div>
+          <div class="group">
+            <span>Operate</span>
+            <a href="#troubleshooting">Troubleshooting</a>
+            <a href="#notes">Operational notes</a>
+          </div>
+        </aside>
+
+        <div class="docs-body">
+          <section class="doc-section" id="quickstart">
+            <h2>Quickstart</h2>
+            <p>
+              Redline is the reference deployment in this repository. It is a static shell, an Ultraviolet service
+              worker, and a WISP relay in a single Node process. You need <b>Node 20 or newer</b>.
+            </p>
+
+            <div class="term">
+              <div class="term-head">
+                <span>bash</span>
+                <button class="copy" data-copy="#cmd-quick">copy</button>
+              </div>
+              <pre id="cmd-quick"><span class="p">$</span> git clone https://github.com/RRedwire/red-wire
+<span class="p">$</span> cd red-wire/services/redline
+<span class="p">$</span> npm install
+<span class="p">$</span> npm start
+
+<span class="g">&gt; redline listening on :8080</span>
+<span class="c"># open http://localhost:8080</span></pre>
+            </div>
+
+            <p>
+              Already have the repository? Skip the clone and run from <code>services/redline</code>. The server
+              serves the shell, the UV runtime, BareMux, Epoxy and the WISP relay — there is nothing else to install.
+            </p>
+
+            <div class="callout">
+              <b>HTTPS matters.</b>
+              <span>Service workers only register on <code>https://</code> or <code>localhost</code>. On a plain-HTTP
+              host the shell will load but proxying will not start.</span>
+            </div>
+          </section>
+
+          <section class="doc-section" id="architecture">
+            <h2>Architecture</h2>
+            <p>
+              Redline is a UBG stack: <b>U</b>ltraviolet, <b>B</b>areMux, and a <b>G</b>eneric shell. Epoxy over WISP
+              is the transport. Each layer has one job.
+            </p>
+
+            <h3>Request path</h3>
+            <ol>
+              <li>The shell registers <code>/sw.js</code> at scope <code>/service/</code>.</li>
+              <li>You navigate to <code>/service/&lt;encoded-url&gt;</code>; the service worker intercepts it.</li>
+              <li>Ultraviolet fetches through <code>BareClient</code>, which talks to the BareMux transport.</li>
+              <li>Epoxy opens an encrypted stream over the WISP WebSocket at <code>/wisp/</code>.</li>
+              <li>The relay opens the TCP connection upstream and pipes bytes back.</li>
+              <li>Ultraviolet rewrites the response and hands it to the browser.</li>
+            </ol>
+
+            <h3>Files that matter</h3>
+            <ul>
+              <li><code>server.js</code> — static server, transport mounts, WISP upgrade handler, <code>/health</code>.</li>
+              <li><code>public/sw.js</code> — imports the UV bundle, config and worker.</li>
+              <li><code>public/uv.config.js</code> — prefix, codec and asset paths.</li>
+              <li><code>public/app.js</code> — registers the worker, sets the transport, drives the UI.</li>
+              <li><code>public/index.html</code> — the shell.</li>
+            </ul>
+
+            <div class="callout">
+              <b>No upstream dependency.</b>
+              <span>Unlike a reverse-proxied proxy shell, Redline serves every byte itself. The only external
+              dependency is the destination site.</span>
+            </div>
+          </section>
+
+          <section class="doc-section" id="docker">
+            <h2>Deploy with Docker</h2>
+            <p>A Dockerfile and Compose file ship with the repo. From the repository root:</p>
+
+            <div class="term">
+              <div class="term-head">
+                <span>bash</span>
+                <button class="copy" data-copy="#cmd-docker">copy</button>
+              </div>
+              <pre id="cmd-docker"><span class="p">$</span> docker compose up --build -d
+<span class="g">&gt; redline listening on :8080</span>
+
+<span class="c"># or build the image directly</span>
+<span class="p">$</span> docker build -t redline ./services/redline
+<span class="p">$</span> docker run -p 8080:8080 -e PORT=8080 redline</pre>
+            </div>
+
+            <p>
+              The container is a single Node process. Terminate TLS in front of it with Caddy, Nginx, Cloudflare, or
+              your platform's edge — the relay itself speaks plain HTTP and upgrades to WebSocket.
+            </p>
+          </section>
+
+          <section class="doc-section" id="hosts">
+            <h2>Hosts</h2>
+            <h3>Fly.io</h3>
+            <div class="term">
+              <div class="term-head">
+                <span>bash</span>
+                <button class="copy" data-copy="#cmd-fly">copy</button>
+              </div>
+              <pre id="cmd-fly"><span class="p">$</span> cd services/redline
+<span class="p">$</span> fly launch --no-deploy
+<span class="p">$</span> fly deploy</pre>
+            </div>
+            <p>Set the internal port to <code>8080</code>. Fly terminates TLS and forwards WebSocket upgrades.</p>
+
+            <h3>Railway / Render</h3>
+            <p>
+              Point the service at <code>services/redline</code>, set the start command to <code>npm start</code> and
+              the port to <code>8080</code>. Both platforms forward upgrades on managed domains.
+            </p>
+
+            <h3>VPS</h3>
+            <p>
+              Run the process under systemd, then put Caddy in front. Caddy gets a certificate automatically and
+              proxies WebSocket without extra configuration:
+            </p>
+            <div class="term">
+              <div class="term-head">
+                <span>Caddyfile</span>
+                <button class="copy" data-copy="#cmd-caddy">copy</button>
+              </div>
+              <pre id="cmd-caddy">redline.example.com {
+  reverse_proxy 127.0.0.1:8080
+}</pre>
+            </div>
+          </section>
+
+          <section class="doc-section" id="cloudflare">
+            <h2>Cloudflare</h2>
+            <p>
+              Cloudflare Pages can host this marketing site and any static shell, but it cannot run the WISP relay —
+              Pages has no long-lived WebSocket backend. Split the deployment:
+            </p>
+            <ul>
+              <li><b>red-wire.org</b> — static site on Cloudflare Pages.</li>
+              <li><b>redline.red-wire.org</b> — the proxy and relay on a container host.</li>
+              <li>Point a DNS record at the container and enable the proxy (orange cloud) for TLS.</li>
+            </ul>
+
+            <div class="term">
+              <div class="term-head">
+                <span>bash — deploy the static site</span>
+                <button class="copy" data-copy="#cmd-pages">copy</button>
+              </div>
+              <pre id="cmd-pages"><span class="p">$</span> npm run build
+<span class="p">$</span> npx wrangler pages deploy dist --project-name redwire
+<span class="g">&gt; deployed to https://redwire.pages.dev</span></pre>
+            </div>
+
+            <div class="callout">
+              <b>Custom domain.</b>
+              <span>In the Pages project, add <code>red-wire.org</code> under Custom domains. Cloudflare creates the
+              record automatically because the zone already lives in the same account.</span>
+            </div>
+          </section>
+
+          <section class="doc-section" id="reverse-proxy">
+            <h2>Reverse proxy</h2>
+            <p>
+              If you put Nginx in front of Redline, the WISP upgrade has to survive the hop. Without these headers the
+              shell loads and proxying fails with a silent handshake error.
+            </p>
+            <div class="term">
+              <div class="term-head">
+                <span>nginx</span>
+                <button class="copy" data-copy="#cmd-nginx">copy</button>
+              </div>
+              <pre id="cmd-nginx">location / {
+  proxy_pass http://127.0.0.1:8080;
+  proxy_http_version 1.1;
+  proxy_set_header Host $host;
+  proxy_set_header X-Real-IP $remote_addr;
+  proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+  proxy_set_header X-Forwarded-Proto $scheme;
+}
+
+location /wisp/ {
+  proxy_pass http://127.0.0.1:8080;
+  proxy_http_version 1.1;
+  proxy_set_header Upgrade $http_upgrade;
+  proxy_set_header Connection "upgrade";
+  proxy_read_timeout 3600s;
+  proxy_send_timeout 3600s;
+}</pre>
+            </div>
+          </section>
+
+          <section class="doc-section" id="configuration">
+            <h2>Configuration</h2>
+            <p>The server reads two environment variables:</p>
+            <ul>
+              <li><code>PORT</code> — listen port, default <code>8080</code>.</li>
+              <li><code>HOST</code> — bind address, default <code>0.0.0.0</code>.</li>
+            </ul>
+            <p>
+              The proxy prefix and codec live in <code>public/uv.config.js</code>. If you change the prefix, update
+              the service-worker scope in <code>public/app.js</code> to match. The WISP endpoint is
+              <code>/wisp/</code> and is referenced once in <code>public/app.js</code>; if you move the relay, change
+              the upgrade route in <code>server.js</code> as well.
+            </p>
+
+            <h3>Swapping the transport</h3>
+            <p>
+              BareMux is deliberately transport-agnostic. To point at a different relay, change the URL passed to
+              <code>setTransport</code>:
+            </p>
+            <div class="term">
+              <div class="term-head">
+                <span>javascript</span>
+                <button class="copy" data-copy="#cmd-transport">copy</button>
+              </div>
+              <pre id="cmd-transport">const conn = new BareMuxConnection("/baremux/worker.js");
+
+await conn.setTransport("/epoxy/index.mjs", [
+  { wisp: "wss://relay.example.com/wisp/" },
+]);</pre>
+            </div>
+          </section>
+
+          <section class="doc-section" id="wirekit">
+            <h2>WireKit</h2>
+            <p>
+              WireKit is the extraction of Redline's client bootstrap: register the worker, set the transport, encode
+              a URL, navigate. The module ships at <code>packages/wirekit/wirekit.js</code>. Copy it into your static
+              root and mount the UV and BareMux assets alongside it.
+            </p>
+            <div class="term">
+              <div class="term-head">
+                <span>javascript</span>
+                <button class="copy" data-copy="#cmd-wirekit">copy</button>
+              </div>
+              <pre id="cmd-wirekit">import { createWire } from "/wirekit/wirekit.js";
+
+const wire = await createWire({
+  sw: "/sw.js",
+  scope: "/service/",
+  transport: "/epoxy/index.mjs",
+  wisp: "wss://proxy.example.com/wisp/",
+});
+
+wire.go("https://example.com");</pre>
+            </div>
+            <p>
+              <code>createWire</code> resolves once the worker is active and the transport is set. It rejects if the
+              page is not served over HTTPS (except on localhost) or if the worker fails to register.
+            </p>
+          </section>
+
+          <section class="doc-section" id="signal">
+            <h2>Signal</h2>
+            <p>
+              Signal is a static link hub driven by one JSON file. Point it at every mirror you run; it renders a
+              filterable page and never phones home.
+            </p>
+            <div class="term">
+              <div class="term-head">
+                <span>links.json</span>
+                <button class="copy" data-copy="#cmd-signal">copy</button>
+              </div>
+              <pre id="cmd-signal">{
+  "name": "Signal",
+  "updated": "2026-11-06",
+  "links": [
+    { "name": "Infrared", "url": "https://infrared.earth", "tag": "flagship", "status": "live" },
+    { "name": "Redline", "url": "https://redline.example.com", "tag": "self-hosted", "status": "live" }
+  ]
+}</pre>
+            </div>
+            <p>
+              Deploy the folder anywhere static. If a mirror dies, remove it from the manifest — there is no build
+              step and no cache to bust.
+            </p>
+          </section>
+
+          <section class="doc-section" id="troubleshooting">
+            <h2>Troubleshooting</h2>
+
+            <h3>The shell loads, but /service/ is blank</h3>
+            <ul>
+              <li>Open DevTools → Application → Service Workers. If <code>/sw.js</code> is not activated, the page is not on HTTPS or localhost.</li>
+              <li>Confirm the scope is <code>/service/</code> and that <code>uv.config.js</code> uses the same prefix.</li>
+              <li>Hard reload once. A stale worker from a previous prefix will keep intercepting the old path.</li>
+            </ul>
+
+            <h3>The relay returns 502 / the transport never opens</h3>
+            <ul>
+              <li>Check that your reverse proxy forwards <code>Upgrade</code> and <code>Connection</code>.</li>
+              <li>Open the WISP URL directly with a WebSocket client; a 404 means the upgrade handler is not mounted.</li>
+              <li>Some platforms strip upgrades on their free tier. Test against <code>localhost</code> first to isolate the host.</li>
+            </ul>
+
+            <h3>Some sites break</h3>
+            <p>
+              This is inherent to service-worker proxying. DRM (Widevine), hardware WebAuthn, strict CSP with
+              <code>frame-ancestors</code>, and WebRTC-heavy apps are common failures. There is no configuration flag
+              that fixes them.
+            </p>
+
+            <h3>Updates don't apply</h3>
+            <p>
+              <code>/sw.js</code> is served with <code>Cache-Control: no-store</code> in the bundled server. If you
+              front it with a CDN, exclude that path from caching. Bump the <code>?v=</code> query string on your own
+              assets when you change them.
+            </p>
+          </section>
+
+          <section class="doc-section" id="notes">
+            <h2>Operational notes</h2>
+            <p>
+              A relay is infrastructure. Budget for bandwidth, keep the dependency lockfile pinned, and put a request
+              limit in front of public deployments. Epoxy terminates TLS end-to-end, so the relay sees encrypted
+              streams — but it still sees destination hosts and volumes.
+            </p>
+            <p>
+              Run RedWire on networks you control or have permission to use. A proxy changes how bytes travel; it
+              doesn't grant access to content you couldn't otherwise reach.
+            </p>
+          </section>
+        </div>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="shell">
+        <div class="footer-grid">
+          <div class="footer-brand">
+            <a class="brand" href="/">
+              <img class="brand-mark" src="/assets/img/redwire-mark.png" alt="" width="28" height="28" />
+              RED<b>WIRE</b>
+            </a>
+            <p>Open infrastructure for a less restricted web. A project by RRedwire and OGsWorkshop.</p>
+          </div>
+          <div>
+            <h4>Services</h4>
+            <ul>
+              <li><a href="https://infrared.earth" target="_blank" rel="noopener">Infrared</a></li>
+              <li><a href="/docs/#quickstart">Redline</a></li>
+              <li><a href="/company/#roadmap">Mirror</a></li>
+              <li><a href="https://github.com/Red60sapphire/redos" target="_blank" rel="noopener">RedOS</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4>Build</h4>
+            <ul>
+              <li><a href="/docs/">Documentation</a></li>
+              <li><a href="/docs/#wirekit">WireKit</a></li>
+              <li><a href="/services/signal/">Signal</a></li>
+              <li><a href="https://github.com/RRedwire" target="_blank" rel="noopener">GitHub</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4>Company</h4>
+            <ul>
+              <li><a href="/company/">About</a></li>
+              <li><a href="/company/#roadmap">Roadmap</a></li>
+              <li><a href="/company/#security">Security</a></li>
+              <li><a href="/company/#changelog">Changelog</a></li>
+            </ul>
+          </div>
+
+          <div>
+            <h4>Network</h4>
+            <ul>
+              <li><a href="/status/">Status</a></li>
+              <li><a href="https://discord.gg/JjdQaNJ3Rj" target="_blank" rel="noopener">Discord</a></li>
+              <li><a href="https://github.com/OGsWorkshop" target="_blank" rel="noopener">OGsWorkshop</a></li>
+              <li><a href="mailto:red@red60.us">Contact</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <span>© <span data-year>2026</span> RedWire — AGPL-3.0 unless noted</span>
+          <span class="sig"><span class="dot"></span> network open</span>
+        </div>
+      </div>
+    </footer>
+
+    <script src="/assets/js/site.js?v=1" defer></script>
+  </body>
+</html>

@@ -1,0 +1,48 @@
+{
+  "name": "Signal",
+  "updated": "2026-11-06",
+  "links": [
+    {
+      "name": "Infrared",
+      "url": "https://infrared.earth",
+      "tag": "proxy",
+      "status": "live",
+      "note": "The flagship proxy. Games, apps and cloaking in one shell."
+    },
+    {
+      "name": "Redline",
+      "url": "https://red-wire.org/docs/#quickstart",
+      "tag": "proxy",
+      "status": "kit",
+      "note": "The reference UBG deployment. Clone it and run your own edge."
+    },
+    {
+      "name": "Mirror",
+      "url": "https://red-wire.org/company/#roadmap",
+      "tag": "fleet",
+      "status": "planned",
+      "note": "A fleet manager for Redline instances. One manifest, many mirrors."
+    },
+    {
+      "name": "RedOS",
+      "url": "https://github.com/Red60sapphire/redos",
+      "tag": "webos",
+      "status": "wip",
+      "note": "A desktop in a tab, with Linux emulation and a terminal."
+    },
+    {
+      "name": "Discord",
+      "url": "https://discord.gg/JjdQaNJ3Rj",
+      "tag": "community",
+      "status": "live",
+      "note": "Support, links and source drops."
+    },
+    {
+      "name": "Beacon",
+      "url": "https://red-wire.org/status/",
+      "tag": "network",
+      "status": "live",
+      "note": "Reachability checks from your browser."
+    }
+  ]
+}

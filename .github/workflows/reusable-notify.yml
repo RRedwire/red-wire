@@ -1,0 +1,26 @@
+name: Discord update log (reusable)
+
+on:
+  workflow_call:
+    secrets:
+      DISCORD_WEBHOOK_URL:
+        required: false
+
+permissions:
+  contents: read
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the notifier
+        uses: actions/checkout@v4
+        with:
+          repository: RRedwire/red-wire
+          ref: main
+          path: .notifier
+
+      - name: Post update to Discord
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+        run: node .notifier/scripts/discord-notify.mjs

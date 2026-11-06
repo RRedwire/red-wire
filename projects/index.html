@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Projects — RedWire</title>
+    <meta name="description" content="The RedWire catalog: proxies, games, a browser desktop, transports and open-source tooling." />
+    <meta name="theme-color" content="#050608" />
+    <link rel="canonical" href="https://red-wire.org/projects/" />
+    <meta property="og:title" content="Projects — RedWire" />
+    <meta property="og:description" content="Proxies, games, a browser desktop, transports and open-source tooling." />
+    <meta property="og:url" content="https://red-wire.org/projects/" />
+    <meta property="og:type" content="website" />
+    <link rel="icon" href="/assets/img/favicon-32.png" type="image/png" sizes="32x32" />
+    <link rel="apple-touch-icon" href="/assets/img/favicon-180.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/assets/css/site.css?v=1" />
+  </head>
+
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <canvas id="wire-canvas" aria-hidden="true" style="position: fixed; inset: 0; z-index: -3; pointer-events: none; opacity: 0.5"></canvas>
+
+    <header class="nav">
+      <div class="shell">
+        <a class="brand" href="/" aria-label="RedWire home">
+          <img class="brand-mark" src="/assets/img/redwire-mark.png" alt="" width="28" height="28" />
+          RED<b>WIRE</b>
+        </a>
+        <nav class="nav-links" aria-label="Primary">
+          <a href="/#services">Services</a>
+          <a href="/projects/">Projects</a>
+          <a href="/company/">Company</a>
+          <a href="/docs/">Docs</a>
+          <a href="/status/">Status</a>
+          <a href="https://github.com/RRedwire" target="_blank" rel="noopener">GitHub</a>
+        </nav>
+        <div class="nav-cta">
+          <a class="btn btn-sm btn-primary" href="/docs/#quickstart">Deploy Redline</a>
+          <button class="nav-menu" aria-label="Open menu" aria-expanded="false">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16" /></svg>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main id="main">
+      <section class="page-head">
+        <div class="shell">
+          <span class="kicker">Catalog</span>
+          <h1>Everything<br />on the wire.</h1>
+          <p>
+            Proxies, games, a browser desktop, libraries and the occasional port that shouldn't exist. Everything is
+            open source or source-available; statuses are honest.
+          </p>
+        </div>
+      </section>
+
+      <section class="section" style="border-top: 0; padding-top: 0">
+        <div class="shell">
+          <div class="filters" role="group" aria-label="Filter projects">
+            <button class="filter active" data-filter="all">All</button>
+            <button class="filter" data-filter="browsing">Browsing</button>
+            <button class="filter" data-filter="games">Games</button>
+            <button class="filter" data-filter="webos">WebOS</button>
+            <button class="filter" data-filter="build">Build</button>
+            <button class="filter" data-filter="ports">Ports</button>
+          </div>
+
+          <div class="project-grid">
+            <a class="proj reveal" data-cat="browsing" href="https://infrared.earth" target="_blank" rel="noopener">
+              <div class="proj-top">
+                <img src="/assets/img/infrared.svg" alt="" />
+                <span class="state live"><i></i> Live</span>
+              </div>
+              <h3>Infrared</h3>
+              <p>The flagship proxy. Games, apps, cloaking and ad-free deployments in a single shell.</p>
+              <div class="proj-foot"><span>Browsing</span><span>infrared.earth ↗</span></div>
+            </a>
+
+            <a class="proj reveal" data-cat="browsing build" href="/docs/#quickstart">
+              <div class="proj-top">
+                <img src="/assets/img/redline.svg" alt="" />
+                <span class="state kit"><i></i> Shipping</span>
+              </div>
+              <h3>Redline</h3>
+              <p>The reference UBG deployment. Ultraviolet, BareMux and Epoxy over WISP with one-command startup.</p>
+              <div class="proj-foot"><span>Proxy kit</span><span>source ↗</span></div>
+            </a>
+
+            <a class="proj reveal" data-cat="build" href="/company/#roadmap">
+              <div class="proj-top">
+                <img src="/assets/img/mirror.svg" alt="" />
+                <span class="state plan"><i></i> Planned</span>
+              </div>
+              <h3>Mirror</h3>
+              <p>A fleet manager for Redline: one manifest, many instances, health checks and link rotation.</p>
+              <div class="proj-foot"><span>Fleet</span><span>roadmap ↗</span></div>
+            </a>
+
+            <a class="proj reveal" data-cat="webos" href="https://github.com/Red60sapphire/redos" target="_blank" rel="noopener">
+              <div class="proj-top">
+                <img src="/assets/img/redos.svg" alt="" />
+                <span class="state dev"><i></i> In development</span>
+              </div>
+              <h3>RedOS</h3>
+              <p>A desktop in a tab. Windows, a real terminal, Linux emulation and a browser-resident filesystem.</p>
+              <div class="proj-foot"><span>WebOS</span><span>github ↗</span></div>
+            </a>
+
+            <a class="proj reveal" data-cat="build" href="/services/signal/">
+              <div class="proj-top">
+                <img src="/assets/img/signal.svg" alt="" />
+                <span class="state kit"><i></i> Kit</span>
+              </div>
+              <h3>Signal</h3>
+              <p>A single manifest of mirrors, rendered as a page that always finds a way in. Edit one JSON file.</p>
+              <div class="proj-foot"><span>Links</span><span>open ↗</span></div>
+            </a>
+
+            <a class="proj reveal" data-cat="build" href="/docs/#wirekit">
+              <div class="proj-top">
+                <img src="/assets/img/wirekit.svg" alt="" />
+                <span class="state kit"><i></i> Docs</span>
+              </div>
+              <h3>WireKit</h3>
+              <p>A thin client around BareMux, Epoxy and the UV config. Add a proxy to any site in a few lines.</p>
+              <div class="proj-foot"><span>SDK</span><span>read ↗</span></div>
+            </a>
+
+            <a class="proj reveal" data-cat="build" href="/docs/#architecture">
+              <div class="proj-top">
+                <img src="/assets/img/nightwire.svg" alt="" />
+                <span class="state plan"><i></i> Planned</span>
+              </div>
+              <h3>Nightwire</h3>
+              <p>A hardened WISP relay: connection shaping, allow-lists and per-tenant limits for hostile networks.</p>
+              <div class="proj-foot"><span>Infrastructure</span><span>spec ↗</span></div>
+            </a>
+
+            <a class="proj reveal" data-cat="build" href="/status/">
+              <div class="proj-top">
+                <img src="/assets/img/beacon.svg" alt="" />
+                <span class="state live"><i></i> Live</span>
+              </div>
+              <h3>Beacon</h3>
+              <p>Browser-side reachability probes for every service. No server-side telemetry, no synthetic uptime.</p>
+              <div class="proj-foot"><span>Operate</span><span>open ↗</span></div>
+            </a>
+
+            <a class="proj reveal" data-cat="ports games" href="https://github.com/Red60sapphire/doom-in-pdf" target="_blank" rel="noopener">
+              <div class="proj-top">
+                <img src="/assets/img/nightwire.svg" alt="" />
+                <span class="state live"><i></i> Playable</span>
+              </div>
+              <h3>Doom in a PDF</h3>
+              <p>Doom (1993) running inside a PDF file. A port that answers a question nobody asked, correctly.</p>
+              <div class="proj-foot"><span>Port</span><span>github ↗</span></div>
+            </a>
+
+            <a class="proj reveal" data-cat="build" href="https://github.com/Red60sapphire/sapphire" target="_blank" rel="noopener">
+              <div class="proj-top">
+                <img src="/assets/img/wirekit.svg" alt="" />
+                <span class="state live"><i></i> Active</span>
+              </div>
+              <h3>Sapphire</h3>
+              <p>A fork of Amethyst that improves the extension compatibility layer for browser-based tooling.</p>
+              <div class="proj-foot"><span>Library</span><span>github ↗</span></div>
+            </a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="shell">
+        <div class="footer-grid">
+          <div class="footer-brand">
+            <a class="brand" href="/">
+              <img class="brand-mark" src="/assets/img/redwire-mark.png" alt="" width="28" height="28" />
+              RED<b>WIRE</b>
+            </a>
+            <p>Open infrastructure for a less restricted web. A project by RRedwire and OGsWorkshop.</p>
+          </div>
+          <div>
+            <h4>Services</h4>
+            <ul>
+              <li><a href="https://infrared.earth" target="_blank" rel="noopener">Infrared</a></li>
+              <li><a href="/docs/#quickstart">Redline</a></li>
+              <li><a href="/company/#roadmap">Mirror</a></li>
+              <li><a href="https://github.com/Red60sapphire/redos" target="_blank" rel="noopener">RedOS</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4>Build</h4>
+            <ul>
+              <li><a href="/docs/">Documentation</a></li>
+              <li><a href="/docs/#wirekit">WireKit</a></li>
+              <li><a href="/services/signal/">Signal</a></li>
+              <li><a href="https://github.com/RRedwire" target="_blank" rel="noopener">GitHub</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4>Company</h4>
+            <ul>
+              <li><a href="/company/">About</a></li>
+              <li><a href="/company/#roadmap">Roadmap</a></li>
+              <li><a href="/company/#security">Security</a></li>
+              <li><a href="/company/#changelog">Changelog</a></li>
+            </ul>
+          </div>
+
+          <div>
+            <h4>Network</h4>
+            <ul>
+              <li><a href="/status/">Status</a></li>
+              <li><a href="https://discord.gg/JjdQaNJ3Rj" target="_blank" rel="noopener">Discord</a></li>
+              <li><a href="https://github.com/OGsWorkshop" target="_blank" rel="noopener">OGsWorkshop</a></li>
+              <li><a href="mailto:red@red60.us">Contact</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <span>© <span data-year>2026</span> RedWire — AGPL-3.0 unless noted</span>
+          <span class="sig"><span class="dot"></span> network open</span>
+        </div>
+      </div>
+    </footer>
+
+    <script src="/assets/js/site.js?v=1" defer></script>
+  </body>
+</html>

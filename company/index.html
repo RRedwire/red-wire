@@ -1,0 +1,350 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Company — RedWire</title>
+    <meta name="description" content="RedWire is an independent software company building self-hostable browsing infrastructure. Mission, principles, roadmap, security model and changelog." />
+    <meta name="theme-color" content="#050608" />
+    <link rel="canonical" href="https://red-wire.org/company/" />
+    <meta property="og:title" content="Company — RedWire" />
+    <meta property="og:description" content="Mission, principles, roadmap, security model and changelog." />
+    <meta property="og:url" content="https://red-wire.org/company/" />
+    <meta property="og:type" content="website" />
+    <link rel="icon" href="/assets/img/favicon-32.png" type="image/png" sizes="32x32" />
+    <link rel="apple-touch-icon" href="/assets/img/favicon-180.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/assets/css/site.css?v=1" />
+  </head>
+
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <canvas id="wire-canvas" aria-hidden="true" style="position: fixed; inset: 0; z-index: -3; pointer-events: none; opacity: 0.4"></canvas>
+
+    <header class="nav">
+      <div class="shell">
+        <a class="brand" href="/" aria-label="RedWire home">
+          <img class="brand-mark" src="/assets/img/redwire-mark.png" alt="" width="28" height="28" />
+          RED<b>WIRE</b>
+        </a>
+        <nav class="nav-links" aria-label="Primary">
+          <a href="/#services">Services</a>
+          <a href="/projects/">Projects</a>
+          <a href="/company/">Company</a>
+          <a href="/docs/">Docs</a>
+          <a href="/status/">Status</a>
+          <a href="https://github.com/RRedwire" target="_blank" rel="noopener">GitHub</a>
+        </nav>
+        <div class="nav-cta">
+          <a class="btn btn-sm btn-primary" href="/docs/#quickstart">Deploy Redline</a>
+          <button class="nav-menu" aria-label="Open menu" aria-expanded="false">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16" /></svg>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main id="main">
+      <section class="page-head">
+        <div class="shell">
+          <span class="kicker">The company</span>
+          <h1>A company for<br />the open wire.</h1>
+          <p>
+            RedWire is an independent software company building browsing infrastructure that people can run
+            themselves. We ship source, publish the trade-offs, and keep the network small enough to trust.
+          </p>
+
+          <div class="facts">
+            <div class="fact"><span>Founded</span><b>2026</b></div>
+            <div class="fact"><span>Products</span><b>08</b></div>
+            <div class="fact"><span>License</span><b>AGPL-3.0</b></div>
+            <div class="fact"><span>Model</span><b>Self-hosted</b></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="about">
+        <div class="shell">
+          <div class="section-head reveal">
+            <div>
+              <span class="kicker">What we believe</span>
+              <h2>Small surface.<br />Open source. Owned by you.</h2>
+              <p>
+                The most useful infrastructure is boring, inspectable and replaceable. We build tools that can be
+                forked, deployed and shut down without asking anyone for permission.
+              </p>
+            </div>
+          </div>
+
+          <div class="services">
+            <div class="svc feature reveal">
+              <div class="svc-top"><span class="svc-icon"><img src="/assets/img/redline.svg" alt="" /></span><span class="svc-tag">Principle 01</span></div>
+              <h3>Self-host first</h3>
+              <p>Every product ships with a deployment path. If we disappeared tomorrow, your instance would keep running.</p>
+              <div class="svc-foot"><span class="state kit"><i></i> by design</span></div>
+            </div>
+
+            <div class="svc feature reveal">
+              <div class="svc-top"><span class="svc-icon"><img src="/assets/img/wirekit.svg" alt="" /></span><span class="svc-tag">Principle 02</span></div>
+              <h3>Read the source</h3>
+              <p>No opaque binaries, no hidden relay. The whole request path is a few files you can audit in an afternoon.</p>
+              <div class="svc-foot"><span class="state kit"><i></i> AGPL-3.0</span></div>
+            </div>
+
+            <div class="svc feature reveal">
+              <div class="svc-top"><span class="svc-icon"><img src="/assets/img/beacon.svg" alt="" /></span><span class="svc-tag">Principle 03</span></div>
+              <h3>Measure honestly</h3>
+              <p>No synthetic uptime, no vanity numbers. Beacon reports what your browser can actually reach, from where you are.</p>
+              <div class="svc-foot"><span class="state live"><i></i> browser-side</span></div>
+            </div>
+
+            <div class="svc feature reveal">
+              <div class="svc-top"><span class="svc-icon"><img src="/assets/img/signal.svg" alt="" /></span><span class="svc-tag">Principle 04</span></div>
+              <h3>No ads, no accounts</h3>
+              <p>Nothing to sign up for, nothing to monetise. The products are the software and the documentation.</p>
+              <div class="svc-foot"><span class="state kit"><i></i> zero telemetry</span></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="organization">
+        <div class="shell">
+          <div class="section-head reveal">
+            <div>
+              <span class="kicker">How we're organized</span>
+              <h2>One network.<br />Two workshops.</h2>
+              <p>RedWire is the company and the network. RRedwire is where the source lives. OGsWorkshop is the product studio behind it.</p>
+            </div>
+          </div>
+
+          <div class="project-grid">
+            <div class="proj reveal">
+              <div class="proj-top"><img src="/assets/img/redwire-mark.png" alt="" /><span class="state live"><i></i> Company</span></div>
+              <h3>RedWire</h3>
+              <p>The network, the brand and the reference deployments. Owns the roadmap and the release process.</p>
+              <div class="proj-foot"><span>Company</span><span>red-wire.org</span></div>
+            </div>
+
+            <div class="proj reveal">
+              <div class="proj-top"><img src="/assets/img/wirekit.svg" alt="" /><span class="state kit"><i></i> Source</span></div>
+              <h3>RRedwire</h3>
+              <p>The GitHub organization. Every product, workflow and deployment manifest lives here under AGPL-3.0.</p>
+              <div class="proj-foot"><span>Engineering</span><span>github.com/RRedwire</span></div>
+            </div>
+
+            <div class="proj reveal">
+              <div class="proj-top"><img src="/assets/img/signal.svg" alt="" /><span class="state kit"><i></i> Studio</span></div>
+              <h3>OGsWorkshop</h3>
+              <p>The product studio behind Infrared and the original experiments that became RedWire.</p>
+              <div class="proj-foot"><span>Studio</span><span>github.com/OGsWorkshop</span></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="roadmap">
+        <div class="shell">
+          <div class="section-head reveal">
+            <div>
+              <span class="kicker">Roadmap</span>
+              <h2>Now, next, later.</h2>
+              <p>Statuses are honest. Anything marked planned has no date attached.</p>
+            </div>
+          </div>
+
+          <div class="project-grid">
+            <div class="proj lane reveal">
+              <div class="proj-top"><span class="tag">Now</span><span class="state live"><i></i> shipping</span></div>
+              <h3>Make the core excellent</h3>
+              <ul>
+                <li><b>Redline 1.0</b><span>reference</span></li>
+                <li><b>Infrared</b><span>live</span></li>
+                <li><b>Signal manifest</b><span>kit</span></li>
+                <li><b>WireKit</b><span>docs</span></li>
+                <li><b>Beacon</b><span>live</span></li>
+              </ul>
+            </div>
+
+            <div class="proj lane reveal">
+              <div class="proj-top"><span class="tag">Next</span><span class="state dev"><i></i> building</span></div>
+              <h3>Connect the network</h3>
+              <ul>
+                <li><b>Nightwire relay</b><span>planned</span></li>
+                <li><b>Fleet config</b><span>design</span></li>
+                <li><b>RedOS beta</b><span>wip</span></li>
+                <li><b>WireKit package</b><span>planned</span></li>
+              </ul>
+            </div>
+
+            <div class="proj lane reveal">
+              <div class="proj-top"><span class="tag">Later</span><span class="state plan"><i></i> horizon</span></div>
+              <h3>Make it boring</h3>
+              <ul>
+                <li><b>Managed hosting</b><span>research</span></li>
+                <li><b>Mobile shells</b><span>research</span></li>
+                <li><b>Team workspaces</b><span>idea</span></li>
+                <li><b>Public postmortems</b><span>always</span></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="security">
+        <div class="shell stack-wrap">
+          <div class="stack-copy reveal">
+            <span class="kicker">Security & transparency</span>
+            <h2>What a relay<br />can and can't see.</h2>
+            <p>
+              Redline terminates Epoxy TLS at the destination. The relay forwards encrypted streams, so payloads
+              stay encrypted in transit — but metadata is still metadata, and we won't pretend otherwise.
+            </p>
+            <ul>
+              <li><b>Sees</b><span>Destination host, connection timing, byte volume and duration. Not page contents.</span></li>
+              <li><b>Doesn't</b><span>Log request bodies, credentials or browsing history by default.</span></li>
+              <li><b>Disclosure</b><span>Report issues in the Discord or by email. We aim to acknowledge within 72 hours.</span></li>
+              <li><b>Hardening</b><span>Pin the lockfile, terminate TLS at the edge, rate-limit public relays, keep logs short.</span></li>
+            </ul>
+          </div>
+
+          <div class="term reveal">
+            <div class="term-head"><span>relay — metadata</span><span>default</span></div>
+            <pre><span class="c"># what the relay records</span>
+<span class="g">destination</span>   example.com:443
+<span class="g">transport</span>     epoxy / wisp v2
+<span class="g">payload</span>       <span class="c">encrypted — not inspected</span>
+<span class="g">duration</span>      12.4s
+<span class="g">bytes</span>         84,201 up / 1,204,882 down
+
+<span class="c"># what it does not record</span>
+<span class="g">history</span>       none
+<span class="g">cookies</span>       none
+<span class="g">accounts</span>      none
+
+<span class="c"># recommended for public relays</span>
+<span class="p">$</span> MAX_CONNS=200 RATE_LIMIT=30/s</pre>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="changelog">
+        <div class="shell">
+          <div class="section-head reveal">
+            <div>
+              <span class="kicker">Changelog</span>
+              <h2>What shipped.</h2>
+              <p>Public, append-only and written by hand.</p>
+            </div>
+          </div>
+
+          <div class="log">
+            <div class="log-item reveal">
+              <time>2026-11-06</time>
+              <div>
+                <h4>RedWire v0.1</h4>
+                <p>Site, Redline reference proxy, Signal link hub, WireKit client, Beacon status and the Discord update log.</p>
+              </div>
+            </div>
+            <div class="log-item reveal">
+              <time>2026-11-06</time>
+              <div>
+                <h4>Redline hardening</h4>
+                <p>Docker, Fly and VPS deployment paths, a no-store worker config and a WISP relay smoke test.</p>
+              </div>
+            </div>
+            <div class="log-item reveal">
+              <time>2026</time>
+              <div>
+                <h4>Infrared</h4>
+                <p>The flagship proxy, maintained with OGsWorkshop. The product that started the network.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="shell">
+          <div class="community reveal">
+            <div class="community-inner">
+              <div>
+                <span class="kicker">Contact</span>
+                <h2>Talk to<br />the wire.</h2>
+                <p>Deployment help, security reports, partnerships or a game you want in the arcade. The Discord is the front door.</p>
+                <div class="community-actions">
+                  <a class="btn btn-primary" href="https://discord.gg/JjdQaNJ3Rj" target="_blank" rel="noopener">Join the Discord</a>
+                  <a class="btn" href="mailto:red@red60.us">Email</a>
+                </div>
+              </div>
+              <div class="community-links">
+                <a class="clink" href="https://github.com/RRedwire" target="_blank" rel="noopener">RRedwire <span>source</span></a>
+                <a class="clink" href="https://github.com/OGsWorkshop" target="_blank" rel="noopener">OGsWorkshop <span>studio</span></a>
+                <a class="clink" href="/status/">Beacon <span>status</span></a>
+                <a class="clink" href="/docs/">Documentation <span>deploy</span></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="shell">
+        <div class="footer-grid">
+          <div class="footer-brand">
+            <a class="brand" href="/">
+              <img class="brand-mark" src="/assets/img/redwire-mark.png" alt="" width="28" height="28" />
+              RED<b>WIRE</b>
+            </a>
+            <p>Open infrastructure for a less restricted web. A project by RRedwire and OGsWorkshop.</p>
+          </div>
+          <div>
+            <h4>Services</h4>
+            <ul>
+              <li><a href="https://infrared.earth" target="_blank" rel="noopener">Infrared</a></li>
+              <li><a href="/docs/#quickstart">Redline</a></li>
+              <li><a href="/company/#roadmap">Mirror</a></li>
+              <li><a href="https://github.com/Red60sapphire/redos" target="_blank" rel="noopener">RedOS</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4>Build</h4>
+            <ul>
+              <li><a href="/docs/">Documentation</a></li>
+              <li><a href="/docs/#wirekit">WireKit</a></li>
+              <li><a href="/services/signal/">Signal</a></li>
+              <li><a href="https://github.com/RRedwire" target="_blank" rel="noopener">GitHub</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4>Company</h4>
+            <ul>
+              <li><a href="/company/">About</a></li>
+              <li><a href="/company/#roadmap">Roadmap</a></li>
+              <li><a href="/company/#security">Security</a></li>
+              <li><a href="/company/#changelog">Changelog</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4>Network</h4>
+            <ul>
+              <li><a href="/status/">Status</a></li>
+              <li><a href="https://discord.gg/JjdQaNJ3Rj" target="_blank" rel="noopener">Discord</a></li>
+              <li><a href="https://github.com/OGsWorkshop" target="_blank" rel="noopener">OGsWorkshop</a></li>
+              <li><a href="mailto:red@red60.us">Contact</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <span>© <span data-year>2026</span> RedWire — AGPL-3.0 unless noted</span>
+          <span class="sig"><span class="dot"></span> network open</span>
+        </div>
+      </div>
+    </footer>
+
+    <script src="/assets/js/site.js?v=1" defer></script>
+  </body>
+</html>

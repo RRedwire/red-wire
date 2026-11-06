@@ -1,0 +1,16 @@
+{
+  "name": "redwire",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "RedWire — open infrastructure for a less restricted web.",
+  "scripts": {
+    "serve": "node scripts/serve-site.mjs",
+    "build": "node scripts/build-site.mjs",
+    "preview": "npm run build && node scripts/serve-site.mjs --dir dist",
+    "deploy": "npm run build && npx wrangler pages deploy dist --project-name redwire",
+    "redline": "npm --prefix services/redline start",
+    "notify:test": "node scripts/discord-notify.mjs --test",
+    "notify:install": "node scripts/install-discord-workflow.mjs"
+  }
+}

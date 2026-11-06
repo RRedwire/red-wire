@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Redline — a RedWire proxy</title>
+    <meta name="description" content="Redline is the reference Ultraviolet + BareMux + Epoxy/WISP proxy deployment from RedWire." />
+    <meta name="theme-color" content="#050608" />
+    <link rel="icon" href="/mark.png" type="image/png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/redline.css" />
+  </head>
+
+  <body>
+    <header class="top">
+      <a class="brand" href="https://red-wire.org">
+        <img src="/mark.png" alt="" width="30" height="30" />
+        <span class="word">REDLINE</span>
+        <em>by redwire</em>
+      </a>
+
+      <div class="tools">
+        <span class="state" id="state" data-state="starting"><i></i><span id="state-text">starting</span></span>
+        <button class="icon" id="cloak" title="Open in about:blank" aria-label="Open in about:blank">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7-10-7-10-7Z" />
+            <path d="m4 4 16 16" />
+          </svg>
+        </button>
+        <button class="icon" id="fullscreen" title="Fullscreen" aria-label="Toggle fullscreen">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M8 3H3v5M16 3h5v5M8 21H3v-5M16 21h5v-5" />
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <main class="main">
+      <div class="hero">
+        <span class="kicker"><i></i> Service worker proxy · UBG</span>
+
+        <h1>Go somewhere<span>.</span></h1>
+        <p class="sub">
+          Ultraviolet rewrites the page. Epoxy carries the bytes. Your relay does the rest.
+          Nothing leaves this origin except the request you asked for.
+        </p>
+
+        <form class="form" id="form" autocomplete="off">
+          <span class="prompt">&gt;</span>
+          <input
+            id="url"
+            type="text"
+            inputmode="url"
+            placeholder="search or enter a url"
+            aria-label="URL or search query"
+            spellcheck="false"
+            autofocus
+          />
+          <button class="go" type="submit">
+            Go
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+              <path d="M5 12h14M13 6l6 6-6 6" />
+            </svg>
+          </button>
+        </form>
+
+        <div class="quick">
+          <span class="qlabel">quick</span>
+          <button data-url="https://google.com">Google</button>
+          <button data-url="https://youtube.com">YouTube</button>
+          <button data-url="https://reddit.com">Reddit</button>
+          <button data-url="https://wikipedia.org">Wikipedia</button>
+          <button data-url="https://discord.com/app">Discord</button>
+        </div>
+
+        <div class="error" id="error" hidden>
+          <b>Transport offline.</b>
+          <span id="error-text"></span>
+          <button id="retry" type="button">retry</button>
+        </div>
+      </div>
+    </main>
+
+    <footer class="foot">
+      <div class="meta">
+        <div><span>service worker</span><b id="sw-state">—</b></div>
+        <div><span>transport</span><b id="transport">—</b></div>
+        <div><span>relay</span><b>/wisp/</b></div>
+      </div>
+      <a class="out" href="https://red-wire.org">red-wire.org ↗</a>
+    </footer>
+
+    <script src="/uv/uv.bundle.js"></script>
+    <script src="/uv.config.js"></script>
+    <script type="module" src="/app.js"></script>
+  </body>
+</html>
