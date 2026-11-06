@@ -16,6 +16,8 @@ const entries = [
   "assets",
   "projects",
   "company",
+  "browse",
+  "play",
   "docs",
   "status",
   "services/signal",

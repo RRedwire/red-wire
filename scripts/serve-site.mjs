@@ -26,7 +26,7 @@ const types = {
 };
 
 const rootFiles = new Set(["/index.html", "/404.html", "/robots.txt", "/sitemap.xml"]);
-const prefixes = ["/assets/", "/projects/", "/company/", "/docs/", "/status/", "/services/signal/"];
+const prefixes = ["/assets/", "/projects/", "/company/", "/browse/", "/play/", "/docs/", "/status/", "/services/signal/"];
 
 function resolve(urlPath) {
   if (urlPath === "/") return path.join(baseDir, "index.html");

@@ -12,12 +12,14 @@ the proxy is real, and every piece is self-hostable.
 | `index.html` | Landing page |
 | `projects/` | Filterable project catalog |
 | `company/` | Mission, principles, roadmap, security model and changelog |
+| `browse/` | Browsing services: hosted Infrared and self-hosted Redline |
+| `play/` | RedArcade — four original, playable browser games |
 | `docs/` | Quickstart, architecture, deploy targets, troubleshooting |
 | `status/` | Beacon — browser-side reachability checks |
 | `assets/` | Design system, emblem, generated icons and OG card |
 | `services/redline/` | **Working UBG proxy**: Ultraviolet + BareMux + Epoxy over WISP |
 | `services/signal/` | Manifest-driven link hub |
-| `packages/wirekit/` | Client bootstrap extracted from Redline |
+| `packages/redkit/` | Client bootstrap extracted from Redline |
 | `scripts/discord-notify.mjs` | Portable Discord update logger |
 | `scripts/install-discord-workflow.mjs` | Adds the notifier to every repo in the org |
 | `.github/workflows/` | Repo notifier + reusable notifier for other repos |

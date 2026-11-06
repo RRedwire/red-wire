@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Snake — RedArcade</title>
+    <meta name="description" content="Snake — an original RedArcade browser game." />
+    <meta name="theme-color" content="#141216" />
+    <link rel="icon" href="/assets/img/favicon-32.png" type="image/png" sizes="32x32" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/assets/css/org.css?v=2" />
+    <link rel="stylesheet" href="/play/play.css?v=2" />
+  </head>
+  <body class="game-page">
+    <header class="game-bar">
+      <a class="game-back" href="/play/">← RedArcade</a>
+      <span class="game-name">Snake</span>
+      <span class="game-stat" id="stat">score 0 · best 0</span>
+    </header>
+
+    <main class="game-main">
+      <div class="game-frame">
+        <canvas id="game" width="480" height="480" aria-label="Snake game board"></canvas>
+        <div class="game-overlay" id="overlay">
+          <h2 id="ov-title">Snake</h2>
+          <p id="ov-text">Arrow keys or WASD. Space pauses. Swipe on touch.</p>
+          <button class="btn btn-primary" id="ov-btn">Start</button>
+        </div>
+      </div>
+      <p class="game-help">arrows / WASD · space pause · enter restart</p>
+    </main>
+
+    <script>
+      (() => {
+        const canvas = document.getElementById("game");
+        const ctx = canvas.getContext("2d");
+        const stat = document.getElementById("stat");
+        const overlay = document.getElementById("overlay");
+        const ovTitle = document.getElementById("ov-title");
+        const ovText = document.getElementById("ov-text");
+        const ovBtn = document.getElementById("ov-btn");
+
+        const CELL = 24;
+        const COLS = 20;
+        const ROWS = 20;
+
+        let snake;
+        let dir;
+        let next;
+        let food;
+        let score = 0;
+        let best = 0;
+        let state = "ready";
+        let timer = null;
+        let speed = 120;
+
+        try {
+          best = Number(localStorage.getItem("redarcade:snake:best") || 0);
+        } catch {}
+
+        function updateStat() {
+          stat.textContent = `score ${score} · best ${best}`;
+        }
+
+        function spawnFood() {
+          let point;
+          do {
+            point = { x: Math.floor(Math.random() * COLS), y: Math.floor(Math.random() * ROWS) };
+          } while (snake.some((part) => part.x === point.x && part.y === point.y));
+          return point;
+        }
+
+        function show(title, text, button) {
+          ovTitle.textContent = title;
+          ovText.textContent = text;
+          ovBtn.textContent = button;
+          overlay.hidden = false;
+        }
+
+        function hide() {
+          overlay.hidden = true;
+        }
+
+        function roundedRect(x, y, w, h, r) {
+          ctx.beginPath();
+          ctx.moveTo(x + r, y);
+          ctx.arcTo(x + w, y, x + w, y + h, r);
+          ctx.arcTo(x + w, y + h, x, y + h, r);
+          ctx.arcTo(x, y + h, x, y, r);
+          ctx.arcTo(x, y, x + w, y, r);
+          ctx.closePath();
+        }
+
+        function draw() {
+          ctx.fillStyle = "#100e12";
+          ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+          ctx.fillStyle = "rgba(236,231,234,.055)";
+          for (let x = 0; x < COLS; x += 1) {
+            for (let y = 0; y < ROWS; y += 1) {
+              ctx.fillRect(x * CELL + CELL / 2, y * CELL + CELL / 2, 1.5, 1.5);
+            }
+          }
+
+          const fx = food.x * CELL + CELL / 2;
+          const fy = food.y * CELL + CELL / 2;
+          ctx.beginPath();
+          ctx.arc(fx, fy, 11, 0, Math.PI * 2);
+          ctx.strokeStyle = "rgba(229,72,91,.25)";
+          ctx.stroke();
+          ctx.beginPath();
+          ctx.arc(fx, fy, 7, 0, Math.PI * 2);
+          ctx.fillStyle = "#e5485b";
+          ctx.fill();
+
+          snake.forEach((part, index) => {
+            const t = index / Math.max(1, snake.length - 1);
+            ctx.fillStyle = index === 0 ? "#ff6275" : `rgba(229,72,91,${0.85 - t * 0.55})`;
+            roundedRect(part.x * CELL + 2, part.y * CELL + 2, CELL - 4, CELL - 4, 5);
+            ctx.fill();
+          });
+        }
+
+        function reset() {
+          snake = [
+            { x: 10, y: 10 },
+            { x: 9, y: 10 },
+            { x: 8, y: 10 },
+          ];
+          dir = { x: 1, y: 0 };
+          next = { x: 1, y: 0 };
+          score = 0;
+          speed = 120;
+          food = spawnFood();
+          state = "ready";
+          clearInterval(timer);
+          timer = null;
+          updateStat();
+          draw();
+          show("Snake", "Arrow keys or WASD. Space pauses. Swipe on touch.", "Start");
+        }
+
+        function startTimer() {
+          clearInterval(timer);
+          timer = setInterval(step, speed);
+        }
+
+        function start() {
+          state = "running";
+          hide();
+          startTimer();
+        }
+
+        function pause() {
+          state = "paused";
+          clearInterval(timer);
+          show("Paused", "Take your time.", "Resume");
+        }
+
+        function resume() {
+          state = "running";
+          hide();
+          startTimer();
+        }
+
+        function gameOver() {
+          state = "over";
+          clearInterval(timer);
+          if (score > best) {
+            best = score;
+            try {
+              localStorage.setItem("redarcade:snake:best", String(best));
+            } catch {}
+          }
+          updateStat();
+          draw();
+          show("Game over", `Score ${score}. Best ${best}.`, "Play again");
+        }
+
+        function step() {
+          if (state !== "running") return;
+
+          dir = next;
+          const head = { x: snake[0].x + dir.x, y: snake[0].y + dir.y };
+
+          if (
+            head.x < 0 ||
+            head.x >= COLS ||
+            head.y < 0 ||
+            head.y >= ROWS ||
+            snake.some((part) => part.x === head.x && part.y === head.y)
+          ) {
+            gameOver();
+            return;
+          }
+
+          snake.unshift(head);
+
+          if (head.x === food.x && head.y === food.y) {
+            score += 10;
+            if (score % 50 === 0 && speed > 65) {
+              speed = Math.max(65, speed - 10);
+              startTimer();
+            }
+            food = spawnFood();
+          } else {
+            snake.pop();
+          }
+
+          updateStat();
+          draw();
+        }
+
+        function setDir(direction) {
+          if (direction.x === -dir.x && direction.y === -dir.y) return;
+          next = direction;
+        }
+
+        window.addEventListener("keydown", (event) => {
+          const key = event.key;
+          if (["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight", " "].includes(key)) {
+            event.preventDefault();
+          }
+
+          if (key === "ArrowUp" || key === "w" || key === "W") setDir({ x: 0, y: -1 });
+          else if (key === "ArrowDown" || key === "s" || key === "S") setDir({ x: 0, y: 1 });
+          else if (key === "ArrowLeft" || key === "a" || key === "A") setDir({ x: -1, y: 0 });
+          else if (key === "ArrowRight" || key === "d" || key === "D") setDir({ x: 1, y: 0 });
+          else if (key === " ") {
+            if (state === "running") pause();
+            else if (state === "paused") resume();
+            else start();
+          } else if (key === "Enter") {
+            if (state === "over") reset();
+            start();
+          }
+        });
+
+        let startX = 0;
+        let startY = 0;
+
+        canvas.addEventListener("pointerdown", (event) => {
+          startX = event.clientX;
+          startY = event.clientY;
+        });
+
+        canvas.addEventListener("pointerup", (event) => {
+          const dx = event.clientX - startX;
+          const dy = event.clientY - startY;
+          if (Math.abs(dx) < 18 && Math.abs(dy) < 18) return;
+          if (Math.abs(dx) > Math.abs(dy)) setDir({ x: dx > 0 ? 1 : -1, y: 0 });
+          else setDir({ x: 0, y: dy > 0 ? 1 : -1 });
+        });
+
+        ovBtn.addEventListener("click", () => {
+          if (state === "paused") resume();
+          else if (state === "over") {
+            reset();
+            start();
+          } else {
+            start();
+          }
+        });
+
+        reset();
+      })();
+    </script>
+  </body>
+</html>

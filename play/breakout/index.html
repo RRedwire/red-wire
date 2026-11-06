@@ -1,0 +1,291 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Breakout — RedArcade</title>
+    <meta name="description" content="Breakout — an original RedArcade browser game." />
+    <meta name="theme-color" content="#141216" />
+    <link rel="icon" href="/assets/img/favicon-32.png" type="image/png" sizes="32x32" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/assets/css/org.css?v=2" />
+    <link rel="stylesheet" href="/play/play.css?v=2" />
+  </head>
+  <body class="game-page">
+    <header class="game-bar">
+      <a class="game-back" href="/play/">← RedArcade</a>
+      <span class="game-name">Breakout</span>
+      <span class="game-stat" id="stat">score 0 · lives 3</span>
+    </header>
+
+    <main class="game-main">
+      <div class="game-frame">
+        <canvas id="game" width="480" height="480" aria-label="Breakout game board"></canvas>
+        <div class="game-overlay" id="overlay">
+          <h2 id="ov-title">Breakout</h2>
+          <p id="ov-text">Move with the mouse or arrow keys. Space starts.</p>
+          <button class="btn btn-primary" id="ov-btn">Start</button>
+        </div>
+      </div>
+      <p class="game-help">mouse / arrows · space start · r restart</p>
+    </main>
+
+    <script>
+      (() => {
+        const canvas = document.getElementById("game");
+        const ctx = canvas.getContext("2d");
+        const stat = document.getElementById("stat");
+        const overlay = document.getElementById("overlay");
+        const ovTitle = document.getElementById("ov-title");
+        const ovText = document.getElementById("ov-text");
+        const ovBtn = document.getElementById("ov-btn");
+
+        const W = 480;
+        const H = 480;
+        const COLS = 8;
+        const ROWS = 5;
+        const PAD = 24;
+        const GAP = 5;
+        const TOP = 52;
+        const BW = (W - PAD * 2 - GAP * (COLS - 1)) / COLS;
+        const BH = 16;
+        const COLORS = ["#833343", "#a83a4a", "#cd455b", "#df5064", "#ff7583"];
+
+        let paddle;
+        let ball;
+        let bricks;
+        let score = 0;
+        let lives = 3;
+        let state = "ready";
+        let raf = 0;
+        let last = 0;
+
+        const keys = { left: false, right: false };
+
+        function updateStat() {
+          stat.textContent = `score ${score} · lives ${lives}`;
+        }
+
+        function show(title, text, button) {
+          ovTitle.textContent = title;
+          ovText.textContent = text;
+          ovBtn.textContent = button;
+          overlay.hidden = false;
+        }
+
+        function hide() {
+          overlay.hidden = true;
+        }
+
+        function roundedRect(x, y, w, h, r) {
+          ctx.beginPath();
+          ctx.moveTo(x + r, y);
+          ctx.arcTo(x + w, y, x + w, y + h, r);
+          ctx.arcTo(x + w, y + h, x, y + h, r);
+          ctx.arcTo(x, y + h, x, y, r);
+          ctx.arcTo(x, y, x + w, y, r);
+          ctx.closePath();
+        }
+
+        function resetGame() {
+          if (raf) cancelAnimationFrame(raf);
+          raf = 0;
+
+          paddle = { w: 84, h: 10, x: W / 2 - 42, y: H - 34 };
+          ball = { x: W / 2, y: H - 72, r: 6, vx: 180, vy: -240 };
+          bricks = [];
+
+          for (let row = 0; row < ROWS; row += 1) {
+            for (let col = 0; col < COLS; col += 1) {
+              bricks.push({
+                x: PAD + col * (BW + GAP),
+                y: TOP + row * (BH + GAP),
+                w: BW,
+                h: BH,
+                alive: true,
+                color: COLORS[row],
+              });
+            }
+          }
+
+          score = 0;
+          lives = 3;
+          state = "ready";
+          updateStat();
+          draw();
+          show("Breakout", "Move with the mouse or arrow keys. Space starts.", "Start");
+        }
+
+        function serve() {
+          ball.x = W / 2;
+          ball.y = H - 72;
+          ball.vx = (Math.random() < 0.5 ? -1 : 1) * 180;
+          ball.vy = -240;
+        }
+
+        function draw() {
+          ctx.fillStyle = "#100e12";
+          ctx.fillRect(0, 0, W, H);
+
+          ctx.strokeStyle = "rgba(236,231,234,.06)";
+          ctx.lineWidth = 1;
+          for (let y = 0; y < H; y += 40) {
+            ctx.beginPath();
+            ctx.moveTo(0, y + 0.5);
+            ctx.lineTo(W, y + 0.5);
+            ctx.stroke();
+          }
+
+          for (const brick of bricks) {
+            if (!brick.alive) continue;
+            ctx.fillStyle = brick.color;
+            roundedRect(brick.x, brick.y, brick.w, brick.h, 3);
+            ctx.fill();
+          }
+
+          ctx.fillStyle = "#ece7ea";
+          roundedRect(paddle.x, paddle.y, paddle.w, paddle.h, 5);
+          ctx.fill();
+
+          ctx.beginPath();
+          ctx.arc(ball.x, ball.y, ball.r, 0, Math.PI * 2);
+          ctx.fillStyle = "#ff6275";
+          ctx.fill();
+        }
+
+        function gameOver() {
+          state = "over";
+          show("Game over", `Score ${score}.`, "Play again");
+        }
+
+        function winGame() {
+          state = "won";
+          show("Cleared", `Score ${score}.`, "Play again");
+        }
+
+        function update(dt) {
+          const paddleSpeed = 420;
+
+          if (keys.left) paddle.x -= paddleSpeed * dt;
+          if (keys.right) paddle.x += paddleSpeed * dt;
+          paddle.x = Math.max(0, Math.min(W - paddle.w, paddle.x));
+
+          ball.x += ball.vx * dt;
+          ball.y += ball.vy * dt;
+
+          if (ball.x - ball.r < 0) {
+            ball.x = ball.r;
+            ball.vx = Math.abs(ball.vx);
+          }
+          if (ball.x + ball.r > W) {
+            ball.x = W - ball.r;
+            ball.vx = -Math.abs(ball.vx);
+          }
+          if (ball.y - ball.r < 0) {
+            ball.y = ball.r;
+            ball.vy = Math.abs(ball.vy);
+          }
+
+          if (ball.y + ball.r > H) {
+            lives -= 1;
+            updateStat();
+            if (lives <= 0) {
+              gameOver();
+              return;
+            }
+            serve();
+          }
+
+          if (
+            ball.vy > 0 &&
+            ball.y + ball.r >= paddle.y &&
+            ball.y - ball.r <= paddle.y + paddle.h &&
+            ball.x >= paddle.x - ball.r &&
+            ball.x <= paddle.x + paddle.w + ball.r
+          ) {
+            ball.y = paddle.y - ball.r;
+            ball.vy = -Math.abs(ball.vy);
+            const hit = (ball.x - (paddle.x + paddle.w / 2)) / (paddle.w / 2);
+            ball.vx = Math.max(-380, Math.min(380, hit * 300));
+          }
+
+          for (const brick of bricks) {
+            if (!brick.alive) continue;
+            if (
+              ball.x + ball.r > brick.x &&
+              ball.x - ball.r < brick.x + brick.w &&
+              ball.y + ball.r > brick.y &&
+              ball.y - ball.r < brick.y + brick.h
+            ) {
+              brick.alive = false;
+              score += 10;
+              updateStat();
+              ball.vy = -ball.vy;
+              break;
+            }
+          }
+
+          if (bricks.every((brick) => !brick.alive)) winGame();
+        }
+
+        function loop(time) {
+          const dt = Math.min(0.025, Math.max(0, (time - last) / 1000));
+          last = time;
+
+          if (state === "running") update(dt);
+          draw();
+
+          if (state === "running") raf = requestAnimationFrame(loop);
+          else raf = 0;
+        }
+
+        function start() {
+          if (state === "over" || state === "won") resetGame();
+          state = "running";
+          hide();
+          last = performance.now();
+          if (!raf) raf = requestAnimationFrame(loop);
+        }
+
+        window.addEventListener("keydown", (event) => {
+          if (event.key === "ArrowLeft" || event.key === "a" || event.key === "A") keys.left = true;
+          if (event.key === "ArrowRight" || event.key === "d" || event.key === "D") keys.right = true;
+
+          if (event.key === " " || event.key === "Enter") {
+            event.preventDefault();
+            if (state !== "running") start();
+          }
+
+          if (event.key === "r" || event.key === "R") {
+            resetGame();
+            start();
+          }
+        });
+
+        window.addEventListener("keyup", (event) => {
+          if (event.key === "ArrowLeft" || event.key === "a" || event.key === "A") keys.left = false;
+          if (event.key === "ArrowRight" || event.key === "d" || event.key === "D") keys.right = false;
+        });
+
+        canvas.addEventListener("pointermove", (event) => {
+          const rect = canvas.getBoundingClientRect();
+          const x = ((event.clientX - rect.left) / rect.width) * W;
+          paddle.x = Math.max(0, Math.min(W - paddle.w, x - paddle.w / 2));
+        });
+
+        canvas.addEventListener("pointerdown", () => {
+          if (state !== "running") start();
+        });
+
+        ovBtn.addEventListener("click", () => {
+          if (state === "over" || state === "won") resetGame();
+          start();
+        });
+
+        resetGame();
+      })();
+    </script>
+  </body>
+</html>

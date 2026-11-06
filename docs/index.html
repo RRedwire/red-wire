@@ -16,23 +16,22 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="/assets/css/site.css?v=1" />
+    <link rel="stylesheet" href="/assets/css/org.css?v=2" />
   </head>
 
   <body>
     <a class="skip" href="#main">Skip to content</a>
-    <canvas id="wire-canvas" aria-hidden="true" style="position: fixed; inset: 0; z-index: -3; pointer-events: none; opacity: 0.35"></canvas>
 
     <header class="nav">
       <div class="shell">
         <a class="brand" href="/" aria-label="RedWire home">
           <img class="brand-mark" src="/assets/img/redwire-mark.png" alt="" width="28" height="28" />
-          RED<b>WIRE</b>
+          RedWire
         </a>
         <nav class="nav-links" aria-label="Primary">
           <a href="/#services">Services</a>
           <a href="/projects/">Projects</a>
-          <a href="/company/">Company</a>
+          <a href="/company/">About</a>
           <a href="/docs/">Docs</a>
           <a href="/status/">Status</a>
           <a href="https://github.com/RRedwire" target="_blank" rel="noopener">GitHub</a>
@@ -75,7 +74,7 @@
           <div class="group">
             <span>Build</span>
             <a href="#configuration">Configuration</a>
-            <a href="#wirekit">WireKit</a>
+            <a href="#redkit">RedKit</a>
             <a href="#signal">Signal</a>
           </div>
           <div class="group">
@@ -303,21 +302,21 @@ await conn.setTransport("/epoxy/index.mjs", [
             </div>
           </section>
 
-          <section class="doc-section" id="wirekit">
-            <h2>WireKit</h2>
+          <section class="doc-section" id="redkit">
+            <h2>RedKit</h2>
             <p>
-              WireKit is the extraction of Redline's client bootstrap: register the worker, set the transport, encode
-              a URL, navigate. The module ships at <code>packages/wirekit/wirekit.js</code>. Copy it into your static
+              RedKit is the extraction of Redline's client bootstrap: register the worker, set the transport, encode
+              a URL, navigate. The module ships at <code>packages/redkit/redkit.js</code>. Copy it into your static
               root and mount the UV and BareMux assets alongside it.
             </p>
             <div class="term">
               <div class="term-head">
                 <span>javascript</span>
-                <button class="copy" data-copy="#cmd-wirekit">copy</button>
+                <button class="copy" data-copy="#cmd-redkit">copy</button>
               </div>
-              <pre id="cmd-wirekit">import { createWire } from "/wirekit/wirekit.js";
+              <pre id="cmd-redkit">import { createProxy } from "/redkit/redkit.js";
 
-const wire = await createWire({
+const wire = await createProxy({
   sw: "/sw.js",
   scope: "/service/",
   transport: "/epoxy/index.mjs",
@@ -327,7 +326,7 @@ const wire = await createWire({
 wire.go("https://example.com");</pre>
             </div>
             <p>
-              <code>createWire</code> resolves once the worker is active and the transport is set. It rejects if the
+              <code>createProxy</code> resolves once the worker is active and the transport is set. It rejects if the
               page is not served over HTTPS (except on localhost) or if the worker fails to register.
             </p>
           </section>
@@ -412,7 +411,7 @@ wire.go("https://example.com");</pre>
           <div class="footer-brand">
             <a class="brand" href="/">
               <img class="brand-mark" src="/assets/img/redwire-mark.png" alt="" width="28" height="28" />
-              RED<b>WIRE</b>
+              RedWire
             </a>
             <p>Open infrastructure for a less restricted web. A project by RRedwire and OGsWorkshop.</p>
           </div>
@@ -420,8 +419,8 @@ wire.go("https://example.com");</pre>
             <h4>Services</h4>
             <ul>
               <li><a href="https://infrared.earth" target="_blank" rel="noopener">Infrared</a></li>
-              <li><a href="/docs/#quickstart">Redline</a></li>
-              <li><a href="/company/#roadmap">Mirror</a></li>
+              <li><a href="/browse/">Redline</a></li>
+              <li><a href="/play/">RedArcade</a></li>
               <li><a href="https://github.com/Red60sapphire/redos" target="_blank" rel="noopener">RedOS</a></li>
             </ul>
           </div>
@@ -429,7 +428,7 @@ wire.go("https://example.com");</pre>
             <h4>Build</h4>
             <ul>
               <li><a href="/docs/">Documentation</a></li>
-              <li><a href="/docs/#wirekit">WireKit</a></li>
+              <li><a href="/docs/#redkit">RedKit</a></li>
               <li><a href="/services/signal/">Signal</a></li>
               <li><a href="https://github.com/RRedwire" target="_blank" rel="noopener">GitHub</a></li>
             </ul>
@@ -461,6 +460,6 @@ wire.go("https://example.com");</pre>
       </div>
     </footer>
 
-    <script src="/assets/js/site.js?v=1" defer></script>
+    <script src="/assets/js/org.js?v=2" defer></script>
   </body>
 </html>

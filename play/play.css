@@ -1,0 +1,348 @@
+/* RedArcade — games site */
+
+.play-hero {
+  padding: 72px 0 40px;
+  border-bottom: 1px solid var(--line);
+}
+
+.play-hero h1 {
+  font-size: clamp(2.6rem, 6vw, 4.2rem);
+  line-height: 1;
+  letter-spacing: -0.04em;
+  font-weight: 800;
+  margin-top: 6px;
+}
+
+.play-hero p {
+  max-width: 62ch;
+  margin-top: 16px;
+  color: var(--muted);
+  font-size: 15.5px;
+}
+
+.play-note {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 20px;
+  margin-top: 22px;
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.06em;
+  color: var(--dim);
+}
+
+.play-note span {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.arcade-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.game-card {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--surface);
+  overflow: hidden;
+  transition: border-color 0.15s ease;
+}
+
+.game-card:hover {
+  border-color: var(--line-strong);
+}
+
+.game-art {
+  height: 170px;
+  display: grid;
+  place-items: center;
+  border-bottom: 1px solid var(--line);
+  background: #171419;
+}
+
+.game-art svg {
+  width: 112px;
+  height: 112px;
+}
+
+.game-info {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: 18px 20px 20px;
+}
+
+.game-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.game-info h3 {
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.game-info p {
+  margin-top: 6px;
+  color: var(--muted);
+  font-size: 13.5px;
+  line-height: 1.55;
+}
+
+.game-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: auto;
+  padding-top: 16px;
+  font-family: var(--mono);
+  font-size: 9.5px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--dim);
+}
+
+.game-card:hover .game-foot span:last-child {
+  color: var(--accent);
+}
+
+/* ---------------------------------------------------------- game shell */
+
+.game-page {
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+}
+
+.game-bar {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 0 24px;
+  height: 56px;
+  border-bottom: 1px solid var(--line);
+  background: var(--bg);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.game-back {
+  font-size: 13px;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.game-back:hover {
+  color: var(--text);
+}
+
+.game-name {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding-left: 16px;
+  border-left: 1px solid var(--line);
+}
+
+.game-stat {
+  margin-left: auto;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+  text-align: right;
+}
+
+.game-main {
+  flex: 1;
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: 14px;
+  padding: 32px 18px 48px;
+}
+
+.game-frame {
+  position: relative;
+  width: min(480px, 100%);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  overflow: hidden;
+  background: var(--surface);
+}
+
+.game-frame canvas {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1;
+  background: #100e12;
+  touch-action: none;
+}
+
+.game-overlay {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 8px;
+  padding: 24px;
+  text-align: center;
+  background: rgba(16, 14, 18, 0.82);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+.game-overlay[hidden] {
+  display: none;
+}
+
+.game-overlay h2 {
+  font-size: 1.8rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+
+.game-overlay p {
+  max-width: 34ch;
+  color: var(--muted);
+  font-size: 13.5px;
+  line-height: 1.6;
+}
+
+.game-overlay .btn {
+  margin-top: 8px;
+}
+
+.game-help {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.04em;
+  color: var(--dim);
+  text-align: center;
+}
+
+/* ---------------------------------------------------------- 2048 */
+
+.board-wrap {
+  position: relative;
+  width: min(480px, 100%);
+}
+
+.board-wrap .board,
+.board-wrap .memory-board {
+  width: 100%;
+}
+
+.board {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 9px;
+  width: min(480px, 100%);
+  padding: 9px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--surface);
+  touch-action: none;
+}
+
+.tile {
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  border-radius: 9px;
+  background: rgba(236, 231, 234, 0.045);
+  color: var(--text);
+  font-family: var(--mono);
+  font-size: clamp(18px, 5.5vw, 30px);
+  font-weight: 500;
+  transition: background 0.12s ease, color 0.12s ease;
+}
+
+.tile[data-v="2"] { background: #2a252e; }
+.tile[data-v="4"] { background: #352d38; }
+.tile[data-v="8"] { background: #4d2b34; }
+.tile[data-v="16"] { background: #682f3b; }
+.tile[data-v="32"] { background: #833343; }
+.tile[data-v="64"] { background: #9e394b; }
+.tile[data-v="128"] { background: #b93f53; color: #fff; }
+.tile[data-v="256"] { background: #cd455b; color: #fff; }
+.tile[data-v="512"] { background: #dd4a5f; color: #fff; }
+.tile[data-v="1024"] { background: #ec4f64; color: #fff; }
+.tile[data-v="2048"] { background: #ff6275; color: #fff; }
+
+/* ---------------------------------------------------------- memory */
+
+.memory-board {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 9px;
+  width: min(480px, 100%);
+}
+
+.mcard {
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--surface);
+  color: transparent;
+  font-family: var(--mono);
+  font-size: clamp(22px, 6vw, 34px);
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease, opacity 0.15s ease;
+}
+
+.mcard:hover {
+  border-color: var(--line-strong);
+}
+
+.mcard.flipped,
+.mcard.matched {
+  color: var(--text);
+  background: var(--accent-soft);
+  border-color: rgba(229, 72, 91, 0.4);
+}
+
+.mcard.matched {
+  opacity: 0.45;
+  cursor: default;
+}
+
+/* ---------------------------------------------------------- responsive */
+
+@media (max-width: 760px) {
+  .arcade-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .play-hero {
+    padding: 44px 0 30px;
+  }
+
+  .game-bar {
+    padding: 0 16px;
+    gap: 12px;
+  }
+
+  .game-name {
+    padding-left: 12px;
+  }
+
+  .game-main {
+    padding: 20px 12px 36px;
+  }
+}

@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Browsing — RedWire</title>
+    <meta name="description" content="RedWire browsing services: launch the hosted Infrared proxy or deploy the self-hosted Redline reference stack." />
+    <meta name="theme-color" content="#141216" />
+    <link rel="canonical" href="https://red-wire.org/browse/" />
+    <meta property="og:title" content="Browsing — RedWire" />
+    <meta property="og:description" content="A browsing proxy you control. Infrared hosted, Redline self-hosted." />
+    <meta property="og:url" content="https://red-wire.org/browse/" />
+    <meta property="og:type" content="website" />
+    <link rel="icon" href="/assets/img/favicon-32.png" type="image/png" sizes="32x32" />
+    <link rel="apple-touch-icon" href="/assets/img/favicon-180.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/assets/css/org.css?v=2" />
+  </head>
+
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+
+    <header class="nav">
+      <div class="shell">
+        <a class="brand" href="/"><img class="brand-mark" src="/assets/img/redwire-mark.png" alt="" width="24" height="24" />RedWire</a>
+        <nav class="nav-links" aria-label="Primary">
+          <a href="/#services">Services</a>
+          <a href="/projects/">Projects</a>
+          <a href="/docs/">Docs</a>
+          <a href="/status/">Status</a>
+          <a href="/company/">About</a>
+        </nav>
+        <div class="nav-cta">
+          <a class="btn btn-sm" href="https://github.com/RRedwire" target="_blank" rel="noopener">GitHub</a>
+          <button class="nav-menu" aria-label="Open menu" aria-expanded="false">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16" /></svg>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main id="main">
+      <section class="page-head">
+        <div class="shell">
+          <span class="kicker">Browsing</span>
+          <h1>A proxy you control.</h1>
+          <p>
+            Two ways to browse: launch the hosted flagship, or run the reference deployment on your own edge.
+            Both use Ultraviolet for rewriting, BareMux for transport and Epoxy over WISP for encrypted streams.
+          </p>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="shell">
+          <div class="section-head">
+            <div>
+              <h2>Browsing services</h2>
+              <p>Hosted and self-hosted options, maintained by RedWire.</p>
+            </div>
+          </div>
+
+          <div class="service-groups">
+            <div class="service-group">
+              <h3 class="service-group-title">Hosted</h3>
+              <ul class="service-list">
+                <li>
+                  <div class="service-row">
+                    <a class="service-name" href="https://infrared.earth" target="_blank" rel="noopener">Infrared</a>
+                    <div class="service-desc">The flagship proxy. Games, apps, tab cloaking and ad-free deployment in one shell. No setup.</div>
+                    <div class="service-meta">
+                      <span class="state live"><i></i> Live</span>
+                      <a href="https://github.com/OGsWorkshop/Infrared" target="_blank" rel="noopener">[Source]</a>
+                      <a href="https://infrared.earth" target="_blank" rel="noopener">[Launch]</a>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+
+            <div class="service-group">
+              <h3 class="service-group-title">Self-hosted</h3>
+              <ul class="service-list">
+                <li>
+                  <div class="service-row">
+                    <a class="service-name" href="/docs/#quickstart">Redline</a>
+                    <div class="service-desc">The reference UBG deployment: static shell, Ultraviolet service worker, BareMux transport, Epoxy over WISP and a Node relay. One command.</div>
+                    <div class="service-meta">
+                      <span class="state kit"><i></i> Kit</span>
+                      <a href="/docs/#quickstart">[Docs]</a>
+                      <a href="https://github.com/RRedwire/red-wire/tree/main/services/redline" target="_blank" rel="noopener">[Source]</a>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="shell stack-wrap">
+          <div class="stack-copy">
+            <span class="kicker">Request path</span>
+            <h2>What happens<br />when you browse.</h2>
+            <p>Redline keeps the stack small and inspectable. Every layer has one job and can be replaced.</p>
+            <ul>
+              <li><b>Shell</b><span>The page registers a service worker at <code>/service/</code>.</span></li>
+              <li><b>Rewrite</b><span>Ultraviolet fetches and rewrites HTML, CSS and JavaScript in your origin.</span></li>
+              <li><b>Transport</b><span>BareMux hands the request to Epoxy, which opens an encrypted stream over WISP.</span></li>
+              <li><b>Relay</b><span>The Node relay opens the upstream TCP connection and pipes bytes back.</span></li>
+            </ul>
+          </div>
+
+          <div class="term">
+            <div class="term-head">
+              <span>bash — deploy redline</span>
+              <button class="copy" data-copy="#cmd-redline">copy</button>
+            </div>
+            <pre id="cmd-redline"><span class="p">$</span> git clone https://github.com/RRedwire/red-wire
+<span class="p">$</span> cd red-wire/services/redline
+<span class="p">$</span> npm install
+<span class="p">$</span> npm start
+
+<span class="g">&gt; redline listening on :8080</span>
+<span class="g">&gt; wisp relay at /wisp/</span>
+<span class="c"># open http://localhost:8080</span></pre>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="shell">
+          <div class="section-head">
+            <div>
+              <h2>Hosting notes</h2>
+            </div>
+          </div>
+          <div class="callout">
+            <b>HTTPS is required.</b>
+            <span>Service workers only register on secure origins. Use HTTPS in production, or localhost for development.</span>
+          </div>
+          <div class="callout">
+            <b>The relay needs WebSockets.</b>
+            <span>Cloudflare Pages can host the static shell but not the WISP relay. Run Redline on a container host with WebSocket support.</span>
+          </div>
+          <div class="callout">
+            <b>No upstream dependency.</b>
+            <span>Redline serves every byte itself. The only external dependency is the site you choose to visit.</span>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="shell">
+        <div class="footer-bottom" style="margin-top: 0; border-top: 0; padding-top: 0">
+          <span>© <span data-year>2026</span> RedWire — AGPL-3.0 unless noted</span>
+          <span class="sig"><span class="dot"></span> network open</span>
+        </div>
+      </div>
+    </footer>
+
+    <script src="/assets/js/org.js?v=2" defer></script>
+  </body>
+</html>

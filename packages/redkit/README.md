@@ -1,21 +1,21 @@
-# WireKit
+# RedKit
 
 The client bootstrap from Redline, extracted so it can drop into any static shell.
 
 ## Use
 
-1. Copy `wirekit.js` into your static root (for example `/wirekit/wirekit.js`).
+1. Copy `redkit.js` into your static root (for example `/redkit/redkit.js`).
 2. Mount the Ultraviolet, BareMux and Epoxy assets.
 3. Load `uv.bundle.js` and `uv.config.js` on the page.
-4. Call `createWire()`.
+4. Call `createProxy()`.
 
 ```html
 <script src="/uv/uv.bundle.js"></script>
 <script src="/uv.config.js"></script>
 <script type="module">
-  import { createWire } from "/wirekit/wirekit.js";
+  import { createProxy } from "/redkit/redkit.js";
 
-  const wire = await createWire({
+  const wire = await createProxy({
     sw: "/sw.js",
     scope: "/service/",
     transport: "/epoxy/index.mjs",
@@ -26,7 +26,7 @@ The client bootstrap from Redline, extracted so it can drop into any static shel
 </script>
 ```
 
-`createWire` resolves once the worker is active and the transport is set. `wire.go()` navigates in place;
+`createProxy` resolves once the worker is active and the transport is set. `wire.go()` navigates in place;
 `wire.open()` opens a new tab. Both accept a URL or a search query, normalized the same way Redline does.
 
 ## Options

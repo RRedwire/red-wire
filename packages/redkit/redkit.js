@@ -30,7 +30,7 @@ export function normalizeUrl(raw) {
   return `https://duckduckgo.com/?q=${encodeURIComponent(value)}`;
 }
 
-export async function createWire(options = {}) {
+export async function createProxy(options = {}) {
   const {
     sw = "/sw.js",
     scope = "/service/",
@@ -41,10 +41,10 @@ export async function createWire(options = {}) {
   } = options;
 
   if (!("serviceWorker" in navigator)) throw new Error("Service workers are unavailable in this browser.");
-  if (!window.isSecureContext) throw new Error("WireKit requires HTTPS, except on localhost.");
+  if (!window.isSecureContext) throw new Error("RedKit requires HTTPS, except on localhost.");
 
   const config = self.__uv$config;
-  if (!config) throw new Error("Load uv.bundle.js and uv.config.js before calling createWire().");
+  if (!config) throw new Error("Load uv.bundle.js and uv.config.js before calling createProxy().");
 
   const registration = await navigator.serviceWorker.register(sw, { scope });
   await activation(registration);

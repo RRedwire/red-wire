@@ -3,16 +3,16 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>RedWire — open infrastructure for a less restricted web</title>
+    <title>RedWire</title>
     <meta
       name="description"
-      content="RedWire builds open-source proxies, transports, games and browser tooling. Ultraviolet + BareMux + Epoxy over WISP. Self-hostable, AGPL-3.0."
+      content="RedWire is an organization building web proxy services, browser tooling and self-hostable infrastructure for a less restrictive web."
     />
-    <meta name="theme-color" content="#050608" />
+    <meta name="theme-color" content="#141216" />
     <link rel="canonical" href="https://red-wire.org/" />
 
-    <meta property="og:title" content="RedWire — open infrastructure for a less restricted web" />
-    <meta property="og:description" content="Open-source proxies, transports and browser tooling. Self-host it, fork it, or launch it in one command." />
+    <meta property="og:title" content="RedWire" />
+    <meta property="og:description" content="Web proxy services, browser tooling and self-hostable infrastructure." />
     <meta property="og:url" content="https://red-wire.org/" />
     <meta property="og:type" content="website" />
     <meta property="og:image" content="https://red-wire.org/assets/img/og.png" />
@@ -23,512 +23,244 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="/assets/css/site.css?v=1" />
+    <link rel="stylesheet" href="/assets/css/org.css?v=2" />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "RedWire",
+        "url": "https://red-wire.org",
+        "logo": "https://red-wire.org/assets/img/redwire-mark.png",
+        "sameAs": [
+          "https://github.com/RRedwire",
+          "https://github.com/OGsWorkshop",
+          "https://discord.gg/JjdQaNJ3Rj"
+        ]
+      }
+    </script>
   </head>
 
   <body>
     <a class="skip" href="#main">Skip to content</a>
-    <canvas id="wire-canvas" aria-hidden="true" style="position: fixed; inset: 0; z-index: -3; pointer-events: none; opacity: 0.65"></canvas>
 
     <header class="nav">
       <div class="shell">
         <a class="brand" href="/" aria-label="RedWire home">
-          <img class="brand-mark" src="/assets/img/redwire-mark.png" alt="" width="28" height="28" />
-          RED<b>WIRE</b>
+          <img class="brand-mark" src="/assets/img/redwire-mark.png" alt="" width="24" height="24" />
+          RedWire
         </a>
-
         <nav class="nav-links" aria-label="Primary">
           <a href="/#services">Services</a>
           <a href="/projects/">Projects</a>
-          <a href="/company/">Company</a>
           <a href="/docs/">Docs</a>
           <a href="/status/">Status</a>
-          <a href="https://github.com/RRedwire" target="_blank" rel="noopener">GitHub</a>
+          <a href="/company/">About</a>
         </nav>
-
         <div class="nav-cta">
-          <a class="btn btn-sm btn-primary" href="/docs/#quickstart">Deploy Redline</a>
+          <a class="btn btn-sm" href="https://github.com/RRedwire" target="_blank" rel="noopener">GitHub</a>
           <button class="nav-menu" aria-label="Open menu" aria-expanded="false">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-              <path d="M4 7h16M4 12h16M4 17h16" />
-            </svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16" /></svg>
           </button>
         </div>
       </div>
     </header>
 
     <main id="main">
-      <!-- ---------------------------------------------------------- hero -->
       <section class="hero">
-        <div class="shell hero-grid">
-          <div>
-            <span class="eyebrow"><span class="dot"></span> Open infrastructure for a less restricted web</span>
-
-            <h1>
-              <span class="line">Your web.</span>
-              <span class="line"><span class="outline">Your</span> <span class="accent">wire.</span></span>
-            </h1>
-
+        <div class="shell">
+          <div class="hero-frame">
+            <h1>RedWire</h1>
             <p class="hero-sub">
-              Open-source proxies, transports and browser tooling — built to route around whatever's in the way.
-              Self-host it, fork it, or launch it in one command.
+              Web proxy services, browser tooling and self-hostable infrastructure, built with a focus on access,
+              privacy and practical deployment.
             </p>
-
             <div class="hero-actions">
-              <a class="btn btn-primary" href="https://infrared.earth" target="_blank" rel="noopener">
-                Launch Infrared
-                <svg class="arrow" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-                  <path d="M5 12h14M13 6l6 6-6 6" />
-                </svg>
-              </a>
-              <a class="btn" href="/docs/#quickstart">Deploy Redline</a>
+              <a class="btn btn-primary" href="/docs/">Get started</a>
+              <a class="btn" href="/company/">About the organization</a>
             </div>
-
             <div class="hero-meta">
-              <span><span class="dot red" style="width: 5px; height: 5px"></span> UV 3.2</span>
-              <span>WISP v2</span>
-              <span>Epoxy TLS</span>
+              <a href="/status/"><span class="dot"></span> network status</a>
               <span>AGPL-3.0</span>
-            </div>
-          </div>
-
-          <div class="net-card reveal">
-            <div class="net-head">
-              <span>redwire://network</span>
-              <span class="lights"><i></i><i></i><i></i></span>
-            </div>
-            <div class="net-body">
-              <div class="row"><span class="k">core</span><span class="v">ultraviolet 3.2.10</span></div>
-              <div class="row"><span class="k">transport</span><span class="v">wisp v2 · epoxy tls</span></div>
-              <div class="row"><span class="k">shell</span><span class="v">service worker</span></div>
-              <div class="row"><span class="k">runtime</span><span class="v">node 20+ / docker</span></div>
-              <div class="row"><span class="k">services</span><span class="v">08 projects</span></div>
-              <div class="row"><span class="k">state</span><span class="v ok">open ●</span></div>
-            </div>
-            <div class="net-foot">
-              <span>&gt; connection open<span class="cursor"></span></span>
-              <a href="/status/" style="color: var(--muted)">status ↗</a>
+              <span>self-hosted</span>
+              <span>open source</span>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- ---------------------------------------------------------- ticker -->
-      <div class="ticker" aria-hidden="true">
-        <div class="ticker-track">
-          <span>Ultraviolet 3.2 <i></i></span>
-          <span>Bare-Mux 2.1 <i></i></span>
-          <span>Epoxy TLS <i></i></span>
-          <span>WISP v2 <i></i></span>
-          <span>Service Workers <i></i></span>
-          <span>Ultraviolet 3.2 <i></i></span>
-          <span>Bare-Mux 2.1 <i></i></span>
-          <span>Epoxy TLS <i></i></span>
-          <span>WISP v2 <i></i></span>
-          <span>Service Workers <i></i></span>
-        </div>
-      </div>
-
-      <!-- ---------------------------------------------------------- services -->
       <section class="section" id="services">
         <div class="shell">
-          <div class="section-head reveal">
+          <div class="section-head">
             <div>
-              <span class="kicker">What we run</span>
-              <h2>One transport layer.<br />A whole stack on top.</h2>
-              <p>
-                Browsing, games, a desktop, and the plumbing that holds it together. Every service ships with source
-                and a path to deploy.
-              </p>
+              <h2>Web proxy services</h2>
+              <p>Hosted services and reference deployments maintained by RedWire.</p>
             </div>
             <a class="btn btn-sm" href="/projects/">All projects</a>
           </div>
 
-          <div class="services">
-            <a class="svc feature reveal" href="https://infrared.earth" target="_blank" rel="noopener">
-              <div class="svc-top">
-                <span class="svc-icon"><img src="/assets/img/infrared.svg" alt="" /></span>
-                <span class="svc-tag">Browsing</span>
-              </div>
-              <h3>Infrared</h3>
-              <p>The flagship proxy. Games, apps, tab cloaking and ad-free deployment, wrapped in a shell that stays out of your way.</p>
-              <div class="svc-foot">
-                <span class="state live"><i></i> Live</span>
-                <span class="go">infrared.earth ↗</span>
-              </div>
-            </a>
-
-            <a class="svc feature reveal" href="/docs/#quickstart">
-              <div class="svc-top">
-                <span class="svc-icon"><img src="/assets/img/redline.svg" alt="" /></span>
-                <span class="svc-tag">Reference proxy</span>
-              </div>
-              <h3>Redline</h3>
-              <p>The reference UBG build: Ultraviolet + BareMux + Epoxy over a WISP relay. Clone it, run one command, own the edge.</p>
-              <div class="svc-foot">
-                <span class="state kit"><i></i> Shipping</span>
-                <span class="go">deploy ↗</span>
-              </div>
-            </a>
-
-            <a class="svc reveal" href="/company/#roadmap">
-              <div class="svc-top">
-                <span class="svc-icon"><img src="/assets/img/mirror.svg" alt="" /></span>
-                <span class="svc-tag">Fleet</span>
-              </div>
-              <h3>Mirror</h3>
-              <p>Run a fleet of Redline instances from one manifest. Health checks, link rotation and per-domain config.</p>
-              <div class="svc-foot">
-                <span class="state plan"><i></i> Planned</span>
-                <span class="go">roadmap ↗</span>
-              </div>
-            </a>
-
-            <a class="svc reveal" href="https://github.com/Red60sapphire/redos" target="_blank" rel="noopener">
-              <div class="svc-top">
-                <span class="svc-icon"><img src="/assets/img/redos.svg" alt="" /></span>
-                <span class="svc-tag">WebOS</span>
-              </div>
-              <h3>RedOS</h3>
-              <p>A desktop in a tab. Windows, a terminal, Linux emulation and a filesystem that lives in the browser.</p>
-              <div class="svc-foot">
-                <span class="state dev"><i></i> In development</span>
-                <span class="go">source ↗</span>
-              </div>
-            </a>
-
-            <a class="svc reveal" href="/services/signal/">
-              <div class="svc-top">
-                <span class="svc-icon"><img src="/assets/img/signal.svg" alt="" /></span>
-                <span class="svc-tag">Links</span>
-              </div>
-              <h3>Signal</h3>
-              <p>One link, every mirror. Publish a single manifest of access points and give people a page that always finds a way in.</p>
-              <div class="svc-foot">
-                <span class="state kit"><i></i> Kit</span>
-                <span class="go">open ↗</span>
-              </div>
-            </a>
-
-            <a class="svc reveal" href="/docs/#wirekit">
-              <div class="svc-top">
-                <span class="svc-icon"><img src="/assets/img/wirekit.svg" alt="" /></span>
-                <span class="svc-tag">Developer</span>
-              </div>
-              <h3>WireKit</h3>
-              <p>Drop a proxy into any site with a handful of lines. A thin client around BareMux, Epoxy and the UV config.</p>
-              <div class="svc-foot">
-                <span class="state kit"><i></i> Docs</span>
-                <span class="go">read ↗</span>
-              </div>
-            </a>
-
-            <a class="svc reveal" href="/docs/#architecture">
-              <div class="svc-top">
-                <span class="svc-icon"><img src="/assets/img/nightwire.svg" alt="" /></span>
-                <span class="svc-tag">Infrastructure</span>
-              </div>
-              <h3>Nightwire</h3>
-              <p>A hardened WISP relay for networks that fight back. Connection shaping, allow-lists and per-tenant limits.</p>
-              <div class="svc-foot">
-                <span class="state plan"><i></i> Planned</span>
-                <span class="go">spec ↗</span>
-              </div>
-            </a>
-
-            <a class="svc reveal" href="/status/">
-              <div class="svc-top">
-                <span class="svc-icon"><img src="/assets/img/beacon.svg" alt="" /></span>
-                <span class="svc-tag">Operate</span>
-              </div>
-              <h3>Beacon</h3>
-              <p>Reachability you can actually read. Browser-side probes for every service, with no server-side telemetry.</p>
-              <div class="svc-foot">
-                <span class="state live"><i></i> Live</span>
-                <span class="go">open ↗</span>
-              </div>
-            </a>
-          </div>
-        </div>
-      </section>
-
-      <!-- ---------------------------------------------------------- stack -->
-      <section class="section" id="stack">
-        <div class="shell stack-wrap">
-          <div class="stack-copy reveal">
-            <span class="kicker">How the wire moves</span>
-            <h2>Boring on purpose.<br />Fast where it counts.</h2>
-            <p>
-              RedWire is built on the same open stack the rest of the scene uses — we just package it so you can run
-              it without reverse-engineering a hundred forks.
-            </p>
-            <ul>
-              <li>
-                <b>Ultraviolet</b>
-                <span>Rewrites HTML, CSS and JavaScript on the fly so the open web renders inside your origin.</span>
-              </li>
-              <li>
-                <b>BareMux</b>
-                <span>One transport interface. Swap a relay, a bare server or an encrypted tunnel without touching the app.</span>
-              </li>
-              <li>
-                <b>Epoxy + WISP</b>
-                <span>Encrypted streams over WebSocket. TLS terminates at the edge, not in the middle.</span>
-              </li>
-            </ul>
-          </div>
-
-          <div class="stack-diagram reveal" aria-hidden="true">
-            <div class="node hot">
-              <span class="idx">01</span>
-              <span class="nm">ultraviolet</span>
-              <span class="ds">rewrite</span>
+          <div class="service-groups">
+            <div class="service-group">
+              <h3 class="service-group-title">Browsing</h3>
+              <ul class="service-list">
+                <li>
+                  <div class="service-row">
+                    <a class="service-name" href="https://infrared.earth" target="_blank" rel="noopener">Infrared</a>
+                    <div class="service-desc">The flagship proxy. Games, apps, tab cloaking and ad-free deployment in one shell.</div>
+                    <div class="service-meta">
+                      <span class="state live"><i></i> Live</span>
+                      <a href="https://github.com/OGsWorkshop/Infrared" target="_blank" rel="noopener">[Source]</a>
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <div class="service-row">
+                    <a class="service-name" href="/browse/">Redline</a>
+                    <div class="service-desc">Reference Ultraviolet + BareMux + Epoxy/WISP deployment. Clone it, run one command, own the edge.</div>
+                    <div class="service-meta">
+                      <span class="state kit"><i></i> Kit</span>
+                      <a href="/docs/#quickstart">[Docs]</a>
+                      <a href="https://github.com/RRedwire/red-wire/tree/main/services/redline" target="_blank" rel="noopener">[Source]</a>
+                    </div>
+                  </div>
+                </li>
+              </ul>
             </div>
-            <div class="wire"></div>
-            <div class="node">
-              <span class="idx">02</span>
-              <span class="nm">bare-mux</span>
-              <span class="ds">route</span>
+
+            <div class="service-group">
+              <h3 class="service-group-title">WebOS</h3>
+              <ul class="service-list">
+                <li>
+                  <div class="service-row">
+                    <a class="service-name" href="https://github.com/Red60sapphire/redos" target="_blank" rel="noopener">RedOS</a>
+                    <div class="service-desc">A desktop in a tab. Windows, a terminal, Linux emulation and a browser-resident filesystem.</div>
+                    <div class="service-meta">
+                      <span class="state dev"><i></i> In development</span>
+                      <a href="https://github.com/Red60sapphire/redos" target="_blank" rel="noopener">[Source]</a>
+                    </div>
+                  </div>
+                </li>
+              </ul>
             </div>
-            <div class="wire"></div>
-            <div class="node">
-              <span class="idx">03</span>
-              <span class="nm">epoxy · wisp</span>
-              <span class="ds">encrypt</span>
+
+            <div class="service-group">
+              <h3 class="service-group-title">Unblocked Games</h3>
+              <ul class="service-list">
+                <li>
+                  <div class="service-row">
+                    <a class="service-name" href="/play/">RedArcade</a>
+                    <div class="service-desc">The arcade on the wire. Original browser games, no accounts and no install step.</div>
+                    <div class="service-meta">
+                      <span class="state live"><i></i> Live</span>
+                      <a href="/play/">[Play]</a>
+                      <a href="https://github.com/RRedwire/red-wire/tree/main/play" target="_blank" rel="noopener">[Source]</a>
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <div class="service-row">
+                    <a class="service-name" href="https://infrared.earth" target="_blank" rel="noopener">Infrared Games</a>
+                    <div class="service-desc">The game library inside Infrared, available through the flagship proxy.</div>
+                    <div class="service-meta">
+                      <span class="state live"><i></i> Live</span>
+                      <a href="https://infrared.earth" target="_blank" rel="noopener">[Open]</a>
+                    </div>
+                  </div>
+                </li>
+              </ul>
             </div>
-            <div class="wire"></div>
-            <div class="node">
-              <span class="idx">04</span>
-              <span class="nm">the open web</span>
-              <span class="ds">reach</span>
+
+            <div class="service-group">
+              <h3 class="service-group-title">Infrastructure</h3>
+              <ul class="service-list">
+                <li>
+                  <div class="service-row">
+                    <a class="service-name" href="/services/signal/">Signal</a>
+                    <div class="service-desc">One manifest of mirrors, rendered as a page that always finds a way in.</div>
+                    <div class="service-meta">
+                      <span class="state kit"><i></i> Kit</span>
+                      <a href="/services/signal/">[Open]</a>
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <div class="service-row">
+                    <a class="service-name" href="/docs/#redkit">RedKit</a>
+                    <div class="service-desc">Client bootstrap for adding a proxy to any site with a handful of lines.</div>
+                    <div class="service-meta">
+                      <span class="state kit"><i></i> Docs</span>
+                      <a href="/docs/#redkit">[Docs]</a>
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <div class="service-row">
+                    <a class="service-name" href="/company/#roadmap">RedRelay</a>
+                    <div class="service-desc">A hardened WISP relay with connection shaping, allow-lists and per-tenant limits.</div>
+                    <div class="service-meta">
+                      <span class="state plan"><i></i> Planned</span>
+                      <a href="/company/#roadmap">[Roadmap]</a>
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <div class="service-row">
+                    <a class="service-name" href="/company/#roadmap">Mirror</a>
+                    <div class="service-desc">Run a fleet of Redline instances from one manifest, with health checks and link rotation.</div>
+                    <div class="service-meta">
+                      <span class="state plan"><i></i> Planned</span>
+                      <a href="/company/#roadmap">[Roadmap]</a>
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <div class="service-row">
+                    <a class="service-name" href="/status/">Beacon</a>
+                    <div class="service-desc">Browser-side reachability checks for every service. No server-side telemetry.</div>
+                    <div class="service-meta">
+                      <span class="state live"><i></i> Live</span>
+                      <a href="/status/">[Status]</a>
+                    </div>
+                  </div>
+                </li>
+              </ul>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- ---------------------------------------------------------- deploy -->
-      <section class="section" id="deploy">
-        <div class="shell deploy-wrap">
-          <div class="deploy-copy reveal">
-            <span class="kicker">Ship your own edge</span>
-            <h2>One command.<br />Your infrastructure.</h2>
-            <p>
-              Redline is a complete, self-contained deployment — shell, service worker, transport and relay. No
-              accounts, no ads, no upstream dependency you can't replace.
-            </p>
-
-            <ul class="deploy-points">
-              <li>
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m4 12 5 5L20 6" /></svg>
-                <span>Runs on any Node 20+ host with WebSocket support.</span>
-              </li>
-              <li>
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m4 12 5 5L20 6" /></svg>
-                <span>Dockerfile included — Fly, Railway, Render or a plain VPS.</span>
-              </li>
-              <li>
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m4 12 5 5L20 6" /></svg>
-                <span>Static site deploys to Cloudflare Pages; the relay stays a container.</span>
-              </li>
-            </ul>
-
-            <div class="deploy-actions">
-              <a class="btn btn-primary" href="/docs/#quickstart">Read the docs</a>
-              <a class="btn" href="https://github.com/RRedwire" target="_blank" rel="noopener">GitHub ↗</a>
-            </div>
-          </div>
-
-          <div class="term reveal">
-            <div class="term-head">
-              <span>bash — redline</span>
-              <button class="copy" data-copy="#cmd-install">copy</button>
-            </div>
-            <pre id="cmd-install"><span class="c"># clone the kit</span>
-<span class="p">$</span> git clone https://github.com/RRedwire/red-wire
-<span class="p">$</span> cd red-wire/services/redline
-<span class="p">$</span> npm install
-<span class="p">$</span> npm start
-
-<span class="g">&gt; redline listening on :8080</span>
-<span class="g">&gt; wisp relay at /wisp/</span>
-<span class="c"># open http://localhost:8080</span></pre>
-          </div>
-        </div>
-      </section>
-
-      <!-- ---------------------------------------------------------- projects -->
-      <section class="section" id="projects">
+      <section class="section" id="socials">
         <div class="shell">
-          <div class="section-head reveal">
+          <div class="section-head">
             <div>
-              <span class="kicker">The catalog</span>
-              <h2>Built in the open.</h2>
-              <p>Proxies, ports, libraries and the occasional weird idea. Everything is source-available.</p>
-            </div>
-            <a class="btn btn-sm" href="/projects/">Full catalog</a>
-          </div>
-
-          <div class="rows">
-            <a class="row-link reveal" href="https://infrared.earth" target="_blank" rel="noopener">
-              <span class="idx">01</span>
-              <span class="name"><img src="/assets/img/infrared.svg" alt="" /> Infrared</span>
-              <span class="kind">Browsing</span>
-              <span class="status">Live</span>
-              <span class="src">infrared.earth</span>
-              <span class="go"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M14 4h6v6M20 4l-8.5 8.5M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5" /></svg></span>
-            </a>
-
-            <a class="row-link reveal" href="/docs/#quickstart">
-              <span class="idx">02</span>
-              <span class="name"><img src="/assets/img/redline.svg" alt="" /> Redline</span>
-              <span class="kind">Proxy kit</span>
-              <span class="status">Shipping</span>
-              <span class="src">this repo</span>
-              <span class="go"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M14 4h6v6M20 4l-8.5 8.5M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5" /></svg></span>
-            </a>
-
-            <a class="row-link reveal" href="/company/#roadmap">
-              <span class="idx">03</span>
-              <span class="name"><img src="/assets/img/mirror.svg" alt="" /> Mirror</span>
-              <span class="kind">Fleet</span>
-              <span class="status">Planned</span>
-              <span class="src">roadmap</span>
-              <span class="go"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M14 4h6v6M20 4l-8.5 8.5M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5" /></svg></span>
-            </a>
-
-            <a class="row-link reveal" href="https://github.com/Red60sapphire/redos" target="_blank" rel="noopener">
-              <span class="idx">04</span>
-              <span class="name"><img src="/assets/img/redos.svg" alt="" /> RedOS</span>
-              <span class="kind">WebOS</span>
-              <span class="status">In development</span>
-              <span class="src">github</span>
-              <span class="go"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M14 4h6v6M20 4l-8.5 8.5M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5" /></svg></span>
-            </a>
-
-            <a class="row-link reveal" href="/services/signal/">
-              <span class="idx">05</span>
-              <span class="name"><img src="/assets/img/signal.svg" alt="" /> Signal</span>
-              <span class="kind">Links</span>
-              <span class="status">Kit</span>
-              <span class="src">this repo</span>
-              <span class="go"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M14 4h6v6M20 4l-8.5 8.5M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5" /></svg></span>
-            </a>
-
-            <a class="row-link reveal" href="https://github.com/Red60sapphire/doom-in-pdf" target="_blank" rel="noopener">
-              <span class="idx">06</span>
-              <span class="name"><img src="/assets/img/nightwire.svg" alt="" /> Doom in a PDF</span>
-              <span class="kind">Port</span>
-              <span class="status">Playable</span>
-              <span class="src">github</span>
-              <span class="go"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M14 4h6v6M20 4l-8.5 8.5M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5" /></svg></span>
-            </a>
-          </div>
-        </div>
-      </section>
-
-      <!-- ---------------------------------------------------------- community -->
-      <section class="section">
-        <div class="shell">
-          <div class="community reveal">
-            <div class="community-inner">
-              <div>
-                <span class="kicker">Community</span>
-                <h2>Build on<br />the wire.</h2>
-                <p>
-                  Deployments, links, source drops and help getting unstuck. The Discord is where the network actually
-                  lives — the GitHub org is where it gets built.
-                </p>
-                <div class="community-actions">
-                  <a class="btn btn-primary" href="https://discord.gg/JjdQaNJ3Rj" target="_blank" rel="noopener">
-                    Join the Discord
-                    <svg class="arrow" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
-                  </a>
-                  <a class="btn" href="https://github.com/RRedwire" target="_blank" rel="noopener">GitHub org</a>
-                </div>
-              </div>
-
-              <div class="community-links">
-                <a class="clink" href="https://discord.gg/JjdQaNJ3Rj" target="_blank" rel="noopener">
-                  Discord <span>support + links</span>
-                </a>
-                <a class="clink" href="https://github.com/RRedwire" target="_blank" rel="noopener">
-                  RRedwire <span>source</span>
-                </a>
-                <a class="clink" href="https://github.com/OGsWorkshop" target="_blank" rel="noopener">
-                  OGsWorkshop <span>workshop</span>
-                </a>
-                <a class="clink" href="/status/">
-                  Beacon <span>status</span>
-                </a>
-              </div>
+              <h2>Socials</h2>
+              <p>Source, support and release notes.</p>
             </div>
           </div>
+          <ul class="social-list">
+            <li><a class="social-row" href="https://github.com/RRedwire" target="_blank" rel="noopener"><span>GitHub</span><span class="arrow">↗</span></a></li>
+            <li><a class="social-row" href="https://discord.gg/JjdQaNJ3Rj" target="_blank" rel="noopener"><span>Discord</span><span class="arrow">↗</span></a></li>
+            <li><a class="social-row" href="https://github.com/OGsWorkshop" target="_blank" rel="noopener"><span>OGsWorkshop</span><span class="arrow">↗</span></a></li>
+            <li><a class="social-row" href="/docs/"><span>Documentation</span><span class="arrow">→</span></a></li>
+            <li><a class="social-row" href="/status/"><span>Status</span><span class="arrow">→</span></a></li>
+            <li><a class="social-row" href="mailto:red@red60.us"><span>Email</span><span class="arrow">↗</span></a></li>
+          </ul>
         </div>
       </section>
     </main>
 
     <footer class="footer">
       <div class="shell">
-        <div class="footer-grid">
-          <div class="footer-brand">
-            <a class="brand" href="/">
-              <img class="brand-mark" src="/assets/img/redwire-mark.png" alt="" width="28" height="28" />
-              RED<b>WIRE</b>
-            </a>
-            <p>Open infrastructure for a less restricted web. A project by RRedwire and OGsWorkshop.</p>
-          </div>
-
-          <div>
-            <h4>Services</h4>
-            <ul>
-              <li><a href="https://infrared.earth" target="_blank" rel="noopener">Infrared</a></li>
-              <li><a href="/docs/#quickstart">Redline</a></li>
-              <li><a href="/company/#roadmap">Mirror</a></li>
-              <li><a href="https://github.com/Red60sapphire/redos" target="_blank" rel="noopener">RedOS</a></li>
-            </ul>
-          </div>
-
-          <div>
-            <h4>Build</h4>
-            <ul>
-              <li><a href="/docs/">Documentation</a></li>
-              <li><a href="/docs/#wirekit">WireKit</a></li>
-              <li><a href="/services/signal/">Signal</a></li>
-              <li><a href="https://github.com/RRedwire" target="_blank" rel="noopener">GitHub</a></li>
-            </ul>
-          </div>
-
-          <div>
-            <h4>Company</h4>
-            <ul>
-              <li><a href="/company/">About</a></li>
-              <li><a href="/company/#roadmap">Roadmap</a></li>
-              <li><a href="/company/#security">Security</a></li>
-              <li><a href="/company/#changelog">Changelog</a></li>
-            </ul>
-          </div>
-
-          <div>
-            <h4>Network</h4>
-            <ul>
-              <li><a href="/status/">Status</a></li>
-              <li><a href="https://discord.gg/JjdQaNJ3Rj" target="_blank" rel="noopener">Discord</a></li>
-              <li><a href="https://github.com/OGsWorkshop" target="_blank" rel="noopener">OGsWorkshop</a></li>
-              <li><a href="mailto:red@red60.us">Contact</a></li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="footer-bottom">
+        <div class="footer-bottom" style="margin-top: 0; border-top: 0; padding-top: 0">
           <span>© <span data-year>2026</span> RedWire — AGPL-3.0 unless noted</span>
           <span class="sig"><span class="dot"></span> network open</span>
         </div>
       </div>
     </footer>
 
-    <script src="/assets/js/site.js?v=1" defer></script>
+    <script src="/assets/js/org.js?v=2" defer></script>
   </body>
 </html>
